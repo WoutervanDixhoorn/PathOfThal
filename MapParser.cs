@@ -9,13 +9,19 @@ namespace PathOfThal
     {       
         bool skipLine = false;
 
-        enum Section{
+        public enum Section{
             LAYERS,
             COLISION,
             SCRIPTREGION,
             END
-
         }
+
+        #region Section getters
+        public static Section LAYERS {get{return Section.LAYERS;}}
+        public static Section COLISION {get{return Section.COLISION;}}
+        public static Section SCRIPTREGION {get{return Section.LASCRIPTREGIONYERS;}}
+        public static Section END {get{return Section.END;}}
+        #endregion
 
         Section section = Section.LAYERS;
         //NOTE: Parse vars
@@ -83,20 +89,23 @@ namespace PathOfThal
                                 currentTerrain = new List<List<Tile>>();
                                 layers.Add(new MapLayer(terrain));
                                 terrain = new Terrain();
-                                section = Section.END;
+                                section = END;
                             }else if(isOpenBracket(c)){
-                                section = Section.COLISION;
+                                section = COLISION;
                             } else {
                                 throw new Exception("Expected a number");
                             }
 
-                        } else if(section == Section.COLISION){
-                            Console.WriteLine("Reached collsion");
+                        } else if(section == COLISION){
+                            //Console.WriteLine("Reached collsion");
                             if(isNum(c)){
-
-                            }
-                            if(isClosedBracket(c)){
-                                Console.WriteLine("Ending collsion");
+                                currentTile = new Tile((c - '0'),0,0, Tile.SOLID);
+                            } else if(isComma(c)){
+                                currentTerrainLine.Add(currentTile);
+                                currentTile = new Tile(0,0,0);
+                                //Go to next tile
+                            } else if(isClosedBracket(c)){
+                                //Console.WriteLine("Ending collsion");
                                 section = Section.LAYERS;
                             }
                         }else{

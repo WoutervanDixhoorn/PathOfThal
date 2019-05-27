@@ -35,7 +35,7 @@ namespace PathOfThal
 
             for(int i = 0; i < TerrainData.GetLength(0); i++){
                 for(int j = 0; j < TerrainData.GetLength(1); j++){
-                    data += " " + TerrainData[i,j];
+                    data += TerrainData[i,j].ToString();
                 }
                 data += '\n';
             }

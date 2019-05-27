@@ -34,11 +34,11 @@ namespace PathOfThal
 
                 for(int i = 0; i < mapLayer.GetTerrain().GetTerrainData().GetLength(1); i++){
                     for(int j = 0; j < mapLayer.GetTerrain().GetTerrainData().GetLength(0); j++){
-                        if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetType() == 0){
+                        if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetTileNumber() == 0){
                             //rect[0].Draw(spriteBatch, i * rect[0].Width + offsetx ,j * rect[0].Height + offesty);
-                        }else if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetType() == 1){
+                        }else if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetTileNumber() == 1){
                             rect[1].Draw(spriteBatch, i * rect[1].Width + offsetx ,j * rect[1].Height + offesty, 2f);
-                        }else if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetType() == 2){
+                        }else if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetTileNumber() == 2){
                             rect[2].Draw(spriteBatch, i * rect[1].Width + offsetx ,j * rect[1].Height + offesty, 0.8f);
                         }
                     }

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 namespace PathOfThal
@@ -6,14 +7,49 @@ namespace PathOfThal
     {
         Vector2 position;
         int type;
+        Type tileType;
 
-        public Tile(int iType, int x, int y){
+        public enum Type{
+            TILE,
+            SOLID
+        }
+
+        #region Type getters
+        
+        public static Type SOLID{
+            get{
+                return Type.SOLID;
+            }
+        }
+
+        public static Type TILE{
+            get{
+                return Type.TILE;
+            }
+        }
+
+        #endregion
+
+        public Tile(int iType, int x, int y, Type iTileType = Type.TILE){
             type = iType;
+            tileType = iTileType;
             position = new Vector2(x,y);
         }
 
-        public int GetType(){
+        public int GetTileNumber(){
             return type;
+        }
+
+        public Type GetTileType(){
+            return tileType;
+        }
+
+        public override string ToString(){
+            if(tileType == SOLID)
+                return "\'" + type;
+            else{
+                return " " + type;
+            }
         }
     }
 }
