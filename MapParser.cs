@@ -8,23 +8,31 @@ namespace PathOfThal
     public class MapParser
     {       
         bool skipLine = false;
-        int section = 0;
 
+        enum Section{
+            LAYERS,
+            COLISION,
+            SCRIPTREGION,
+            END
+
+        }
+
+        Section section = Section.LAYERS;
         //NOTE: Parse vars
         string mapData;
         int[,] terrainData;
-        string currentTile = "";
-        List<string> currentTerrainLine;
-        List<List<string>> currentTerrain;
+        Tile currentTile = new Tile(0,0,0);
+        List<Tile> currentTerrainLine;
+        List<List<Tile>> currentTerrain;
 
         //Setup the mapParser
         public MapParser(){
-            currentTerrainLine = new List<String>();
-            currentTerrain = new List<List<String>>();
+            currentTerrainLine = new List<Tile>();
+            currentTerrain = new List<List<Tile>>();
         }
 
         /// <summary> 
-        /// Parses a map to a 'Map' object and returns it
+        /// Parses a map file to a 'Map' object and returns it
         /// </summary>
         /// <param name="iFileName">name of map file</param>
         public Map Parse(string iFileName){
@@ -43,46 +51,56 @@ namespace PathOfThal
                         skipLine = true;
                     } else if(!skipLine){
                         
-                        if(section == 0){
+                        if(section == Section.LAYERS){
                             if(isUseless(c)){
                                 //DoNothing
                             }else if(isComma(c)){
                                 currentTerrainLine.Add(currentTile);
-                                currentTile = "";
+                                currentTile = new Tile(0,0,0);
                                 //Go to next tile
                             } else if(isNum(c)){
-                                currentTile += c;
+                                currentTile = new Tile((c - '0'),0,0);
                             } else if(isDash(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTerrain.Add(currentTerrainLine);
-                                currentTile = "";
-                                currentTerrainLine = new List<string>();
+                                currentTile = new Tile(0,0,0);;
+                                currentTerrainLine = new List<Tile>();
                             } else if(isAnd(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTerrain.Add(currentTerrainLine);
-                                currentTile = "";
-                                currentTerrainLine = new List<string>();
+                                currentTile = new Tile(0,0,0);;
+                                currentTerrainLine = new List<Tile>();
                                 terrain.SetTerrainData(currentTerrain);
-                                currentTerrain = new List<List<String>>();
+                                currentTerrain = new List<List<Tile>>();
                                 layers.Add(new MapLayer(terrain));
                                 terrain = new Terrain();
                             } else if(isStar(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTerrain.Add(currentTerrainLine);
-                                currentTile = "";
-                                currentTerrainLine = new List<string>();
+                                currentTile = new Tile(0,0,0);;
+                                currentTerrainLine = new List<Tile>();
                                 terrain.SetTerrainData(currentTerrain);
-                                currentTerrain = new List<List<String>>();
+                                currentTerrain = new List<List<Tile>>();
                                 layers.Add(new MapLayer(terrain));
                                 terrain = new Terrain();
-                                section = 1;
+                                section = Section.END;
+                            }else if(isOpenBracket(c)){
+                                section = Section.COLISION;
                             } else {
                                 throw new Exception("Expected a number");
                             }
 
-                        } else if(section == 1){
-                            Console.WriteLine("Reached section 1");
-                            section++;
+                        } else if(section == Section.COLISION){
+                            Console.WriteLine("Reached collsion");
+                            if(isNum(c)){
+
+                            }
+                            if(isClosedBracket(c)){
+                                Console.WriteLine("Ending collsion");
+                                section = Section.LAYERS;
+                            }
+                        }else{
+                            Console.WriteLine("Parsing map succes!");
                         }
                     }
                 }
@@ -92,6 +110,14 @@ namespace PathOfThal
         }
 
         #region Utility
+
+        public bool isOpenBracket(char c){
+            return c == '[';
+        }
+
+        public bool isClosedBracket(char c){
+            return c == ']';
+        }
 
         public bool isUseless(char c){
             return c == '\r' || c == '\n';

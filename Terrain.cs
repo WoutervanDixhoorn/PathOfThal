@@ -7,29 +7,29 @@ namespace PathOfThal
     public class Terrain
     {
         
-        int[,] TerrainData;
+        Tile[,] TerrainData;
 
         public Terrain(){
         }
 
-        public void SetTerrainData(List<List<string>> iTerrainData){
+        public void SetTerrainData(List<List<Tile>> iTerrainData){
             int TerrainHeight = iTerrainData.Count;
             int TerrainWidth = iTerrainData[0].Count;
 
-            TerrainData = new int[TerrainHeight, TerrainWidth];
+            TerrainData = new Tile[TerrainHeight, TerrainWidth];
 
             for(int i = 0; i < TerrainHeight; i++){
                 for(int j = 0; j < TerrainWidth; j++){
-                    TerrainData[i,j] = Int32.Parse(iTerrainData[i][j]);
+                    TerrainData[i,j] = iTerrainData[i][j];
                 }
             }
 
         }
 
-        public int[,] GetTerrainData(){
+        public Tile[,] GetTerrainData(){
             return TerrainData;
         }
-
+        
         public override string ToString(){
             string data = "";
 
