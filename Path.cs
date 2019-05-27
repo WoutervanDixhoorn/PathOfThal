@@ -75,38 +75,16 @@ namespace PathOfThal
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
-            
-
 
             //InputHandling
             KeyboardState state = Keyboard.GetState();
-            
-            //TODO: Collision needs to work from all directions
-            //      And player glitches when coliding, need to handle the position
-            if(player.isColliding(map) && ableToMove == true){
-                Direction = Vector2.Zero;
-                ableToMove = false;
-                //Console.WriteLine("Collide at " + player.Position);
-                //player.Position = previousPlayerPos;
-                if((isButtonReleased(Keys.Left, state) && isButtonReleased(Keys.Right, state)) || (isButtonReleased(Keys.Up, state) && isButtonReleased(Keys.Down, state))){ 
-                    ableToMove = true;
-                }
-                //Cant moveee!!!
-            }else if(ableToMove == true){
-                Direction = new Vector2(IsButtonDown(Keys.Left, state) ? -1 : (IsButtonDown(Keys.Right, state) ? 1 : 0) , IsButtonDown(Keys.Up, state) ? -1 : (IsButtonDown(Keys.Down, state) ? 1 : 0));
-            }          
-            
-            previousPlayerPos = player.Position;
+           //TODO: ANYTHING THAT USES INPUT IN HERE!!         
             previousState = state;
 
-            //Console.WriteLine("[Direction] | " + Direction);
-
             //PlayerHandling
-            player.Update(gameTime, Direction);
+            player.Update(gameTime, map);
 
             //Camera
             camera.Update(gameTime, this, GraphicsDevice.Viewport);
@@ -116,8 +94,6 @@ namespace PathOfThal
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 			map.Draw(spriteBatch, 0, 0,rect0, rect1, rect2);

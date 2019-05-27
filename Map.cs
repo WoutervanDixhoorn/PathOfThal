@@ -62,7 +62,7 @@ namespace PathOfThal
         public Tile getTile(int x, int y, int Layer = 1){
             try{
                 //TODO: 100 is hard coded, needs to be the size of each tile
-                 return layers[Layer].GetTerrain().GetTerrainData()[y / 100,x / 100];
+                 return layers[Layer].GetTerrain().GetTerrainData()[(int)y / 100,(int)x / 100];
             }catch{
                 //TODO: Is probably a temporary solution, Want it be able to just return a null value
                 return new Tile(0,0,0);
