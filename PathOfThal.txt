@@ -1,0 +1,59 @@
+/**
+    *Project planning
+    Title: Path Of Thal
+*/
+
+/**
+    *What's the game about
+        You take a step in the life of a Neanderthal 'Thal'. Have to complete a number of tasks to make
+        progression. The goal of the game is to escape living in fear. It is a story type of game where the
+        balance between adventure and descision making is key.
+
+    *Format of the game / story
+        Top down RPG like. Exlpore a vast world (Probably pixel like). Collect wood
+        to stay warm. Collect plants and kill animals to stay alive, lack of food will decreas your speed and such.
+        Sell collectables for food or materials to stay alive. Barter is also a decent part of the game.
+
+*/
+
+/**
+
+    *Features
+        * Maybe a sidescroller combination would be fun. Like mario. Control from the top and have scripted events
+          that have a sidescroller layout.
+
+*/
+
+/**
+    *Map data structure
+        * Needs to hold terrain data
+        * Needs to hold npc refrence //So the game knows what npc file it needs to put where
+        * Needs to hold the state of changeble objects in game //For example a piece of wood that can be picked up
+        * Needs to hold collision data. //So solid objects are a thing
+            /*
+                *Think the best way to have a map by having one file per screen. every
+                *screen has 'layers'. Each layer has certain information, for example: *What tiles to put where.
+                                                                                       *A region with a function // A function can be 'Solid' or 'Event-1'
+                                                                                                                 // wich is then linked to an event file.
+            */
+
+    *Player data structure
+        * Needs to hold players health
+        * Needs to hold players position
+        * Needs to hold players inventory data //Maybe seperate encrypted file so players cant just cheat
+        * Needs to hold some sort of achievement tree //Maybe seperate encrypted file so players cant just cheat
+        * Needs to hold information about what quests the player did //For example 'Stage 2 in "A piece of log"'
+
+    *Scripted events
+        * Maybe some sort of event that only happens at night, rituals of some sort to alter your luck by offering animal/collectebles to the gods
+
+    * Npc data structure
+        * Needs to hold data about what they can trade //For example piece of log for five apples
+        * Needs to hold the position of the npc
+        * Needs to hold what sprite npc uses
+        * Needs to hold quest info //Dialogs, objectives and progression
+
+    *Animation Sysyem
+        * Some sort of handler that handles all the animation data for me //This can be aplied on every entity/image
+
+*/

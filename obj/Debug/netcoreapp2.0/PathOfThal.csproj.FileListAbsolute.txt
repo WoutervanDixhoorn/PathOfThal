@@ -1,0 +1,11 @@
+D:\MonoGame\PathOfThal\bin\Debug\netcoreapp2.0\PathOfThal.deps.json
+D:\MonoGame\PathOfThal\bin\Debug\netcoreapp2.0\PathOfThal.runtimeconfig.json
+D:\MonoGame\PathOfThal\bin\Debug\netcoreapp2.0\PathOfThal.runtimeconfig.dev.json
+d:\MonoGame\PathOfThal\bin\Debug\netcoreapp2.0\PathOfThal.dll
+d:\MonoGame\PathOfThal\bin\Debug\netcoreapp2.0\PathOfThal.pdb
+d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.csprojAssemblyReference.cache
+d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.csproj.CoreCompileInputs.cache
+d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.AssemblyInfoInputs.cache
+d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.AssemblyInfo.cs
+d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.dll
+d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.pdb
