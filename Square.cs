@@ -17,6 +17,7 @@ namespace PathOfThal
         Color color;
         Color borderColor;
 
+        float alpha;
         public int Width{
             get{
                 return width;
@@ -77,20 +78,20 @@ namespace PathOfThal
         }
         
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 iPosition){
-            spriteBatch.Draw(rect, iPosition, Color.White);
+        public void Draw(SpriteBatch spriteBatch, Vector2 iPosition, float iAlpha = 1){
+            spriteBatch.Draw(rect, iPosition, Color.White * iAlpha);
         }
 
-        public void Draw(SpriteBatch spriteBatch, int x, int y){
-            spriteBatch.Draw(rect, new Vector2(x,y), Color.White);          
+        public void Draw(SpriteBatch spriteBatch, int x, int y, float iAlpha = 1){
+            spriteBatch.Draw(rect, new Vector2(x,y), Color.White * iAlpha);          
         }
 
-        public void DrawBorder(SpriteBatch spriteBatch, int x, int y){
-            spriteBatch.Draw(border, new Vector2(x,y), Color.White);
+        public void DrawBorder(SpriteBatch spriteBatch, int x, int y, float iAlpha = 1){
+            spriteBatch.Draw(border, new Vector2(x,y), Color.White * iAlpha);
         }
 
-        public void DrawBorder(SpriteBatch spriteBatch, Vector2 iPosition){
-            spriteBatch.Draw(border, iPosition, Color.White);
+        public void DrawBorder(SpriteBatch spriteBatch, Vector2 iPosition, float iAlpha = 1){
+            spriteBatch.Draw(border, iPosition, Color.White * iAlpha);
         }
 
         public void setHeight(int iHeight){

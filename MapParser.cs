@@ -31,19 +31,22 @@ namespace PathOfThal
 
             //NOTE: Parse mapData to a 'Map' object
             mapData = File.ReadAllText(iFileName);
+            List<MapLayer> layers = new List<MapLayer>();
             Terrain terrain = new Terrain();
 
             if(mapData != string.Empty){
                 //Loops trough every char and determinates where it needs to go
                 foreach(char c in mapData){
-                    if(skipLine && isEndLine(c)){
+                    if(skipLine && isUseless(c)){
                         skipLine = false;
                     } else if(isComment(c)){
                         skipLine = true;
                     } else if(!skipLine){
                         
                         if(section == 0){
-                            if(isComma(c)){
+                            if(isUseless(c)){
+                                //DoNothing
+                            }else if(isComma(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTile = "";
                                 //Go to next tile
@@ -54,24 +57,45 @@ namespace PathOfThal
                                 currentTerrain.Add(currentTerrainLine);
                                 currentTile = "";
                                 currentTerrainLine = new List<string>();
+                            } else if(isAnd(c)){
+                                currentTerrainLine.Add(currentTile);
+                                currentTerrain.Add(currentTerrainLine);
+                                currentTile = "";
+                                currentTerrainLine = new List<string>();
+                                terrain.SetTerrainData(currentTerrain);
+                                currentTerrain = new List<List<String>>();
+                                layers.Add(new MapLayer(terrain));
+                                terrain = new Terrain();
                             } else if(isStar(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTerrain.Add(currentTerrainLine);
                                 currentTile = "";
                                 currentTerrainLine = new List<string>();
                                 terrain.SetTerrainData(currentTerrain);
-                                section++;
+                                currentTerrain = new List<List<String>>();
+                                layers.Add(new MapLayer(terrain));
+                                terrain = new Terrain();
+                                section = 1;
+                            } else {
+                                throw new Exception("Expected a number");
                             }
-                        }
 
+                        } else if(section == 1){
+                            Console.WriteLine("Reached section 1");
+                            section++;
+                        }
                     }
                 }
             }
 
-            return new Map(terrain);
+            return new Map(layers);
         }
 
         #region Utility
+
+        public bool isUseless(char c){
+            return c == '\r' || c == '\n';
+        }
         public bool isComment(char c){
             return c == '#';
         }
@@ -80,16 +104,16 @@ namespace PathOfThal
             return c == '*';
         }
 
+        public bool isAnd(char c){
+            return c == '&';
+        }
+
         public bool isDash(char c){
             return c == '-';
         }
 
         public bool isNum(char c){
             return Char.IsDigit(c);
-        }
-
-        public bool isEndLine(char c){
-            return c == '\n';
         }
 
         public bool isComma(char c){
