@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -44,5 +45,10 @@ namespace PathOfThal
             return playerRect.Height;
         }
 
+        public bool isColliding(Map iMap){
+            Console.WriteLine( "X: " + (GetX() + playerRect.Width) + " Y: " + (GetY() + playerRect.Height));
+            return iMap.getTile(GetX() + playerRect.Width - 5, GetY()).GetTileType() == Tile.SOLID;
+           
+        }
     }
 }

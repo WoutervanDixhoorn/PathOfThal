@@ -17,6 +17,7 @@ namespace PathOfThal
         public Square rect3;
 
         public Player player;
+        Vector2 previousPlayerPos; 
         Vector2 Direction;
         Camera camera;
 
@@ -42,10 +43,11 @@ namespace PathOfThal
 			rect0 = new Square(size,Color.Yellow, 5);
 			rect1 = new Square(size,Color.Blue, 5);
             rect2 = new Square(size, Color.BlueViolet, 5);
-            rect3 = new Square(size / 2, Color.White, 7);
+            rect3 = new Square(size, Color.White, 7);
 
             player = new Player(rect3, 5);
             Direction = Vector2.Zero;
+            previousPlayerPos = player.Position;
 
             camera = new Camera(GraphicsDevice.Viewport);
 
@@ -82,9 +84,17 @@ namespace PathOfThal
             KeyboardState state = Keyboard.GetState();
             
 
-
-            Direction = new Vector2(IsButtonDown(Keys.Left, state) ? -1 : (IsButtonDown(Keys.Right, state) ? 1 : 0) , IsButtonDown(Keys.Up, state) ? -1 : (IsButtonDown(Keys.Down, state) ? 1 : 0));
-
+            if(player.isColliding(map)){
+                Direction = Vector2.Zero;
+                //Console.WriteLine("Collide at " + player.Position);
+                player.Position = previousPlayerPos;
+                //Cant moveee!!!
+            }else{
+                Direction = new Vector2(IsButtonDown(Keys.Left, state) ? -1 : (IsButtonDown(Keys.Right, state) ? 1 : 0) , IsButtonDown(Keys.Up, state) ? -1 : (IsButtonDown(Keys.Down, state) ? 1 : 0));
+            }
+            
+            
+            previousPlayerPos = player.Position;
             previousState = state;
 
             //Console.WriteLine("[Direction] | " + Direction);

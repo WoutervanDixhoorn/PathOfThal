@@ -19,7 +19,7 @@ namespace PathOfThal
         #region Section getters
         public static Section LAYERS {get{return Section.LAYERS;}}
         public static Section COLISION {get{return Section.COLISION;}}
-        public static Section SCRIPTREGION {get{return Section.LASCRIPTREGIONYERS;}}
+        public static Section SCRIPTREGION {get{return Section.SCRIPTREGION;}}
         public static Section END {get{return Section.END;}}
         #endregion
 

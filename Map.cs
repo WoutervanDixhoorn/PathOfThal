@@ -59,6 +59,16 @@ namespace PathOfThal
             throw new Exception("[Map.GetTerrain(Index = " + Index + ") \n Is not valid. You sure its in bound of the layers list?");
         }
 
+        public Tile getTile(int x, int y, int Layer = 1){
+            try{
+                //TODO: 100 is hard coded, needs to be the size of each tile
+                 return layers[Layer].GetTerrain().GetTerrainData()[y / 100,x / 100];
+            }catch{
+                //TODO: Is probably a temporary solution, Want it be able to just return a null value
+                return new Tile(0,0,0);
+            }    
+        }
+
         public override string ToString(){
             string terrainString = String.Empty;
 
