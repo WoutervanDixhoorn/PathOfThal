@@ -19,6 +19,7 @@ namespace PathOfThal
         public Player player;
         Vector2 previousPlayerPos; 
         Vector2 Direction;
+        bool ableToMove;
         Camera camera;
 
         //InputHandling
@@ -48,6 +49,7 @@ namespace PathOfThal
             player = new Player(rect3, 5);
             Direction = Vector2.Zero;
             previousPlayerPos = player.Position;
+            ableToMove = true;
 
             camera = new Camera(GraphicsDevice.Viewport);
 
@@ -83,16 +85,20 @@ namespace PathOfThal
             //InputHandling
             KeyboardState state = Keyboard.GetState();
             
-
-            if(player.isColliding(map)){
+            //TODO: Collision needs to work from all directions
+            //      And player glitches when coliding, need to handle the position
+            if(player.isColliding(map) && ableToMove == true){
                 Direction = Vector2.Zero;
+                ableToMove = false;
                 //Console.WriteLine("Collide at " + player.Position);
-                player.Position = previousPlayerPos;
+                //player.Position = previousPlayerPos;
+                if((isButtonReleased(Keys.Left, state) && isButtonReleased(Keys.Right, state)) || (isButtonReleased(Keys.Up, state) && isButtonReleased(Keys.Down, state))){ 
+                    ableToMove = true;
+                }
                 //Cant moveee!!!
-            }else{
+            }else if(ableToMove == true){
                 Direction = new Vector2(IsButtonDown(Keys.Left, state) ? -1 : (IsButtonDown(Keys.Right, state) ? 1 : 0) , IsButtonDown(Keys.Up, state) ? -1 : (IsButtonDown(Keys.Down, state) ? 1 : 0));
-            }
-            
+            }          
             
             previousPlayerPos = player.Position;
             previousState = state;
@@ -127,6 +133,10 @@ namespace PathOfThal
 
         public bool IsButtonDown(Keys key, KeyboardState state){
             return (state.IsKeyDown(key));
+        }
+
+        public bool isButtonReleased(Keys key, KeyboardState state){
+            return (state.IsKeyUp(key)) && previousState.IsKeyUp(key);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace PathOfThal
     {
         
         Square playerRect;
-        int speed;
+        public int speed;
         public Vector2 Position;
 
         public Player(Square rect, int iSpeed){
