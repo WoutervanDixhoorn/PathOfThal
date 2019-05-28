@@ -9,3 +9,4 @@ d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.AssemblyInfoInputs.cac
 d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.AssemblyInfo.cs
 d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.dll
 d:\MonoGame\PathOfThal\obj\Debug\netcoreapp2.0\PathOfThal.pdb
+d:\MonoGame\PathOfThal\bin\Debug\netcoreapp2.0\Content\CourierNew.xnb

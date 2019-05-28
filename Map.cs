@@ -12,7 +12,7 @@ namespace PathOfThal
     {
         
         List<MapLayer> layers;
-
+        
         public Map(){
             layers = new List<MapLayer>();
         }
@@ -64,6 +64,21 @@ namespace PathOfThal
 
                 }
 
+            }
+        }
+
+        public void DrawTileNumbers(SpriteBatch spriteBatch){
+            Text number = new Text("CourierNew");
+            number.Load();
+
+            foreach(MapLayer ml in layers){
+
+                for(int i = 0; i < ml.GetTerrain().GetTerrainData().GetLength(0); i++){
+                    for(int j = 0; j < ml.GetTerrain().GetTerrainData().GetLength(1); j++){
+                        number.Draw(spriteBatch, j + "," + i, j * 100 + 1, i * 100 + 1, Color.Black);
+                        number.Draw(spriteBatch, j + "," + i, j * 100, i * 100);
+                    }
+                }
             }
         }
 

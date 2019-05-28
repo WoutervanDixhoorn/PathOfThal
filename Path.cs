@@ -64,6 +64,7 @@ namespace PathOfThal
 			MapParser mapParser = new MapParser();
 			map = mapParser.Parse("MapExample.txt");
 			Console.WriteLine(map.ToString());
+            ContentHandler.Instance.Load(Content);
 
 			rect0.Load(GraphicsDevice);
 			rect1.Load(GraphicsDevice);
@@ -98,6 +99,7 @@ namespace PathOfThal
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 			map.Draw(spriteBatch, 0, 0,rect0, rect1, rect2);
             map.DrawColisions(spriteBatch);
+            map.DrawTileNumbers(spriteBatch);
             player.Draw(spriteBatch);
             spriteBatch.End();
 
