@@ -51,23 +51,22 @@ namespace PathOfThal
         public void Load(GraphicsDevice iGraphicsDevice){
             //GraphicsDevice newGraphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, new PresentationParameters());
 
-            squareData = new Color[width*height];
-            borderData = new Color[width*height];
+            squareData = new Color[(width*height)];
+            borderData = new Color[(width*height)];
 
-            //TODO: HOE WERKT DIT OOK ALWEER!!!??? 
+            //Load square
+            for(int i = 0; i < squareData.Length; i++){squareData[i] = color;}
+
+            //Load Border
             for(int i = 0; i < height; i++){
                 for(int j = 0; j < width; j++){
-                
                     if(j >= i*width - borderSize || j <= borderSize){
                         borderData[i*width+j] = borderColor;
                     }else if(j >= width - borderSize){
                         borderData[i*width+j] = borderColor;
                     }else if(i >= height - borderSize || i <= borderSize){
                         borderData[i*width+j] = borderColor;
-                    }
-                    squareData[i*width+j] = color;
-                 
-                    //Console.WriteLine(i*width+j);
+                    }                 
                 }
             }
 

@@ -44,9 +44,9 @@ namespace PathOfThal
 			rect0 = new Square(size,Color.Yellow, 5);
 			rect1 = new Square(size,Color.Blue, 5);
             rect2 = new Square(size, Color.White, 5);
-            rect3 = new Square(size, Color.White, 7);
+            rect3 = new Square(size / 2, Color.White, 3);
 
-            player = new Player(rect3, 5);
+            player = new Player(rect3, 2);
             Direction = Vector2.Zero;
             previousPlayerPos = player.Position;
             ableToMove = true;
@@ -98,8 +98,8 @@ namespace PathOfThal
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 			map.Draw(spriteBatch, 0, 0,rect0, rect1, rect2);
-            //map.DrawColisions(spriteBatch);
-            //map.DrawTileNumbers(spriteBatch);
+            map.DrawColisions(spriteBatch);
+            map.DrawTileNumbers(spriteBatch);
             player.Draw(spriteBatch);
             spriteBatch.End();
 

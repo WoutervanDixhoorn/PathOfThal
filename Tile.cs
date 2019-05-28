@@ -10,12 +10,18 @@ namespace PathOfThal
         Type tileType;
 
         public enum Type{
+            NONE,
             TILE,
             SOLID
         }
 
         #region Type getters
-        
+        public static Type NONE{
+            get{
+                return Type.NONE;
+            }
+        }
+
         public static Type SOLID{
             get{
                 return Type.SOLID;

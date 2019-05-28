@@ -93,16 +93,29 @@ namespace PathOfThal
         }
 
         public Tile getTile(int x, int y, int Layer = 1){
-            if((x > 0 && y > 0 )){
+            if(!((x > 0 && y > 0 ) && (x < GetWidthOfMap() && y < GetHeightOfMap()) )){
+                //Console.WriteLine("[GetTile] Out bound");
+                //Console.WriteLine("[getTile] Tile not found at: X:" + ((int)x / 100) + " Y: " + ((int)y / 100));
+                return new Tile(0,0,0, Tile.NONE);
+            } else{
                 //TODO: 100 is hard coded, needs to be the size of each tile
                 //TODO: Doesnt find the correct tile i suppose!
-                return layers[Layer].GetTerrain().GetTerrainData()[((int)y / 100),((int)x / 100)];
-            }else{
-                Console.WriteLine("[getTile] Tile not found");
-                return new Tile(0,0,0);
+                //Console.WriteLine("[GetTile] in bound");
+                //Console.WriteLine("[getTile]" + layers[Layer].GetTerrain().GetTerrainData()[((int)y / 100),((int)x / 100)].GetTileType() + "found at: X:" + ((int)x / 100) + " Y: " + ((int)y / 100));
+
+                return layers[Layer].GetTerrain().GetTerrainData()[((int)(y / 100)),((int)(x / 100))];
             }
+            
                 //TODO: Is probably a temporary solution, Want it be able to just return a null value
 
+        }
+
+        public int GetWidthOfMap(){
+            return (layers[0].GetTerrain().GetTerrainData().GetLength(1) ) * 100;
+        }
+
+        public int GetHeightOfMap(){
+            return (layers[0].GetTerrain().GetTerrainData().GetLength(0) ) * 100;
         }
 
         public override string ToString(){

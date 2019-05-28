@@ -36,7 +36,6 @@ namespace PathOfThal
 
             //TODO: Collision needs to work from all directions
             //      And player glitches when coliding, need to handle the position
-            
             if(dir.X < 0 && isCollidingLeft(iMap)){
                 dir.X = 0;
             }
@@ -50,16 +49,14 @@ namespace PathOfThal
                 dir.Y = 0;
             }
 
-            
-
             prevState = state;
 
             Position += dir;
-            dir = Vector2.Zero;
+            //dir = Vector2.Zero;
         }
 
         public void Draw(SpriteBatch spriteBatch){
-            playerRect.DrawBorder(spriteBatch, Position);
+            playerRect.Draw(spriteBatch, Position);
         }
 
         public int GetX(){
@@ -80,22 +77,22 @@ namespace PathOfThal
 
         //Collision Detection
         public bool isCollidingLeft(Map iMap){
-            //Console.WriteLine("Tile" + iMap.getTile(GetX() + (int)dir.X, (int)Position.Y));  
-            return (iMap.getTile(GetX() + (int)dir.X, GetY()).GetTileType() == Tile.SOLID
-            );
+            
+            return (iMap.getTile(GetX() + (int)dir.X, GetY()).GetTileType() == Tile.SOLID) || 
+                    iMap.getTile(GetX() + (int)dir.X, GetY() + playerRect.Height).GetTileType() == Tile.SOLID;
             
         }
         public bool isCollidingRight(Map iMap){
-            //Console.WriteLine("Tile" + iMap.getTile((GetX() + playerRect.Width) + (int)dir.X, (int)Position.Y));  
-            return (iMap.getTile((GetX() + playerRect.Width) + (int)dir.X, GetY()).GetTileType() == Tile.SOLID
-            );  
+            return (iMap.getTile(GetX() + playerRect.Width + (int)dir.X, GetY()).GetTileType() == Tile.SOLID) || 
+                    iMap.getTile(GetX() + playerRect.Width + (int)dir.X, GetY() + playerRect.Height).GetTileType() == Tile.SOLID;  
         }
         public bool isCollidingTop(Map iMap){
-            return (iMap.getTile((GetX() + playerRect.Width), GetY() + (int)dir.Y).GetTileType() == Tile.SOLID) || 
-                    (iMap.getTile((GetX()), GetY() + (int)dir.Y).GetTileType() == Tile.SOLID);
+            return (iMap.getTile((GetX() + playerRect.Width), (GetY()) + (int)dir.Y).GetTileType() == Tile.SOLID) ||
+                    iMap.getTile((GetX()), (GetY()) + (int)dir.Y).GetTileType() == Tile.SOLID;  
         }
         public bool isCollidingBottom(Map iMap){
-            return iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() - 5) + (int)dir.Y).GetTileType() == Tile.SOLID;  
+            return (iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() + (int)dir.Y) + (int)dir.Y).GetTileType() == Tile.SOLID) ||
+                    iMap.getTile((GetX()),GetY()+GetHeight()+(int)dir.Y).GetTileType() == Tile.SOLID;  
         }
 
         //TEMP INPUT HANDLING
