@@ -98,8 +98,8 @@ namespace PathOfThal
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 			map.Draw(spriteBatch, 0, 0,rect0, rect1, rect2);
-            map.DrawColisions(spriteBatch);
-            map.DrawTileNumbers(spriteBatch);
+            //map.DrawColisions(spriteBatch);
+            //map.DrawTileNumbers(spriteBatch);
             player.Draw(spriteBatch);
             spriteBatch.End();
 

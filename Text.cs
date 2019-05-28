@@ -16,8 +16,22 @@ namespace PathOfThal
             fontPath = iFontname;   
         }
 
-        public void Draw(SpriteBatch spriteBatch,string Text, int x, int y, Color? iColor = null ){
+        public void Draw(SpriteBatch spriteBatch,string Text, int x, int y, Color? iColor = null){
             spriteBatch.DrawString(font, Text, new Vector2(x,y), iColor ?? Color.White);
+        }
+
+        public void DrawBordered(SpriteBatch spriteBatch, string Text, int x, int y, Color? iColor = null,Color? iBorderColor = null, float iScale = 1){
+            //Vector2 origin = new Vector2(font.MeasureString(Text).X/2, font.MeasureString(Text).Y /2); 
+            Vector2 origin = new Vector2(-4,-4);
+
+            //Displace text for line
+            spriteBatch.DrawString(font, Text, new Vector2(x,y) + new Vector2(1 * iScale, 1 * iScale), iBorderColor ?? Color.Black,0,origin,iScale,SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, Text, new Vector2(x,y) + new Vector2(-1 * iScale, -1 * iScale), iBorderColor ?? Color.Black,0,origin,iScale,SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, Text, new Vector2(x,y) + new Vector2(-1 * iScale, 1 * iScale), iBorderColor ?? Color.Black,0,origin,iScale,SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, Text, new Vector2(x,y) + new Vector2(1 * iScale, -1 * iScale), iBorderColor ?? Color.Black,0,origin,iScale,SpriteEffects.None, 1f);
+
+            //Draw the text above displacement
+            spriteBatch.DrawString(font, Text, new Vector2(x,y), iColor ?? Color.White,0,origin,iScale,SpriteEffects.None, 1f);
         }
 
         public void Load(){

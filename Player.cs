@@ -91,7 +91,8 @@ namespace PathOfThal
             );  
         }
         public bool isCollidingTop(Map iMap){
-            return iMap.getTile((GetX() + playerRect.Width), GetY() + (int)dir.Y).GetTileType() == Tile.SOLID;
+            return (iMap.getTile((GetX() + playerRect.Width), GetY() + (int)dir.Y).GetTileType() == Tile.SOLID) || 
+                    (iMap.getTile((GetX()), GetY() + (int)dir.Y).GetTileType() == Tile.SOLID);
         }
         public bool isCollidingBottom(Map iMap){
             return iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() - 5) + (int)dir.Y).GetTileType() == Tile.SOLID;  
