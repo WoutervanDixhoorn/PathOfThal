@@ -43,7 +43,7 @@ namespace PathOfThal
             // TODO: Add your initialization logic here
 			rect0 = new Square(size,Color.Yellow, 5);
 			rect1 = new Square(size,Color.Blue, 5);
-            rect2 = new Square(size, Color.BlueViolet, 5);
+            rect2 = new Square(size, Color.White, 5);
             rect3 = new Square(size, Color.White, 7);
 
             player = new Player(rect3, 5);
@@ -97,6 +97,7 @@ namespace PathOfThal
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 			map.Draw(spriteBatch, 0, 0,rect0, rect1, rect2);
+            map.DrawColisions(spriteBatch);
             player.Draw(spriteBatch);
             spriteBatch.End();
 

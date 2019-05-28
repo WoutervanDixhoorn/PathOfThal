@@ -39,13 +39,32 @@ namespace PathOfThal
                         }else if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetTileNumber() == 1){
                             rect[1].Draw(spriteBatch, i * rect[1].Width + offsetx ,j * rect[1].Height + offesty, 2f);
                         }else if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetTileNumber() == 2){
-                            rect[2].Draw(spriteBatch, i * rect[1].Width + offsetx ,j * rect[1].Height + offesty, 0.8f);
+                            rect[2].Draw(spriteBatch, i * rect[1].Width + offsetx ,j * rect[1].Height + offesty, 0.5f);
                         }
                     }
                 }
             }
 
             
+        }
+
+        public void DrawColisions(SpriteBatch spriteBatch){
+            //TODO: 100 needs to be the size of the tiles
+            Square col = new Square(100, 100, Color.Black, 2, Color.Black);
+            col.Load(spriteBatch.GraphicsDevice);
+
+            foreach(MapLayer ml in layers){
+
+                for(int i = 0; i < ml.GetTerrain().GetTerrainData().GetLength(0); i++){
+                    for(int j = 0; j < ml.GetTerrain().GetTerrainData().GetLength(1); j++){
+                        if(ml.GetTerrain().GetTerrainData()[i,j].GetTileType() == Tile.SOLID){
+                            col.DrawBorder(spriteBatch, j * col.Width, i * col.Height);
+                        }
+                    }
+
+                }
+
+            }
         }
 
         public void AddTerrain(MapLayer iMapLayer){
@@ -60,13 +79,16 @@ namespace PathOfThal
         }
 
         public Tile getTile(int x, int y, int Layer = 1){
-            try{
+            if((x > 0 && y > 0 )){
                 //TODO: 100 is hard coded, needs to be the size of each tile
-                 return layers[Layer].GetTerrain().GetTerrainData()[(int)y / 100,(int)x / 100];
-            }catch{
-                //TODO: Is probably a temporary solution, Want it be able to just return a null value
+                //TODO: Doesnt find the correct tile i suppose!
+                return layers[Layer].GetTerrain().GetTerrainData()[((int)y / 100),((int)x / 100)];
+            }else{
+                Console.WriteLine("[getTile] Tile not found");
                 return new Tile(0,0,0);
-            }    
+            }
+                //TODO: Is probably a temporary solution, Want it be able to just return a null value
+
         }
 
         public override string ToString(){

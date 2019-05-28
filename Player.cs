@@ -32,14 +32,15 @@ namespace PathOfThal
         
             dir = new Vector2(IsButtonDown(Keys.Left, state, prevState) ? -1*speed : (IsButtonDown(Keys.Right, state, prevState) ? 1*speed : 0*speed) , IsButtonDown(Keys.Up, state, prevState) ? -1*speed : (IsButtonDown(Keys.Down, state, prevState) ? 1*speed : 0*speed));;
 
-            Console.WriteLine("Pos: " + (int)Position.X/100 + " " + (int)Position.Y/100);
+            //Console.WriteLine("Pos: " + (int)Position.X/100 + " " + (int)Position.Y/100);
 
             //TODO: Collision needs to work from all directions
             //      And player glitches when coliding, need to handle the position
-            if(dir.X > 0 && isCollidingLeft(iMap)){
+            
+            if(dir.X < 0 && isCollidingLeft(iMap)){
                 dir.X = 0;
             }
-            if(dir.X < 0 && isCollidingRight(iMap)){
+            if(dir.X > 0 && isCollidingRight(iMap)){
                 dir.X = 0;
             }
             if(dir.Y > 0 && isCollidingBottom(iMap)){
@@ -49,7 +50,7 @@ namespace PathOfThal
                 dir.Y = 0;
             }
 
-            Console.WriteLine("Tile" + iMap.getTile((int)Position.X, (int)Position.Y));
+            
 
             prevState = state;
 
@@ -79,10 +80,13 @@ namespace PathOfThal
 
         //Collision Detection
         public bool isCollidingLeft(Map iMap){
+            //Console.WriteLine("Tile" + iMap.getTile(GetX() + (int)dir.X, (int)Position.Y));  
             return (iMap.getTile(GetX() + (int)dir.X, GetY()).GetTileType() == Tile.SOLID
-            );  
+            );
+            
         }
         public bool isCollidingRight(Map iMap){
+            //Console.WriteLine("Tile" + iMap.getTile((GetX() + playerRect.Width) + (int)dir.X, (int)Position.Y));  
             return (iMap.getTile((GetX() + playerRect.Width) + (int)dir.X, GetY()).GetTileType() == Tile.SOLID
             );  
         }
