@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace PathOfThal
 {
@@ -7,6 +8,7 @@ namespace PathOfThal
         
         //Quick singleton
         private static ContentHandler instance;
+
         public static ContentHandler Instance{
             get{
                 if(instance == null){
@@ -17,13 +19,15 @@ namespace PathOfThal
         }
 
         public ContentManager Content{private set; get;}
+        public GraphicsDevice Graphics{private set; get;}
 
         public ContentHandler(){
 
         }
 
-        public void Load(ContentManager iContent){
+        public void Load(ContentManager iContent, GraphicsDevice iGraphics){
             this.Content = new ContentManager(iContent.ServiceProvider, "Content");
+            this.Graphics = iGraphics;
         }
 
     }

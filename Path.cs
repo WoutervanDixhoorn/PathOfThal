@@ -41,9 +41,6 @@ namespace PathOfThal
             previousState = Keyboard.GetState();
 
             // TODO: Add your initialization logic here
-			rect0 = new Square(size,Color.Yellow, 5);
-			rect1 = new Square(size,Color.Blue, 5);
-            rect2 = new Square(size, Color.White, 5);
             rect3 = new Square(size / 2, Color.White, 3);
 
             player = new Player(rect3, 2);
@@ -64,13 +61,9 @@ namespace PathOfThal
 			MapParser mapParser = new MapParser();
 			map = mapParser.Parse("MapExample.txt");
 			Console.WriteLine(map.ToString());
-            ContentHandler.Instance.Load(Content);
-
-			rect0.Load(GraphicsDevice);
-			rect1.Load(GraphicsDevice);
-            rect2.Load(GraphicsDevice);
-            rect3.Load(GraphicsDevice);
-
+            ContentHandler.Instance.Load(Content, GraphicsDevice);
+            rect3.Load();
+            map.Load();
             player.Load();
         }
 
@@ -97,7 +90,7 @@ namespace PathOfThal
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
-			map.Draw(spriteBatch, 0, 0,rect0, rect1, rect2);
+			map.Draw(spriteBatch, 0, 0);
             map.DrawColisions(spriteBatch);
             map.DrawTileNumbers(spriteBatch);
             player.Draw(spriteBatch);

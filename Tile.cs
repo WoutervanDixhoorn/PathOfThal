@@ -7,7 +7,27 @@ namespace PathOfThal
     {
         Vector2 position;
         int type;
+        float Alpha;
         Type tileType;
+        Square tileSquare;
+
+        public int X{
+            get{
+                return (int)position.X;
+            }
+            set{
+                position.X = value;
+            }
+        }
+
+        public int Y{
+            get{
+                return (int)position.Y;
+            }
+            set{
+                position.Y = value;
+            }
+        }
 
         public enum Type{
             NONE,
@@ -40,6 +60,44 @@ namespace PathOfThal
             type = iType;
             tileType = iTileType;
             position = new Vector2(x,y);
+
+            //Declare tile color
+            //TODO: There is probably a better way to find the color
+            Color tileColor = Color.White;
+            switch(iType){
+                case 1:
+                    tileColor = Color.Blue;
+                    Alpha = 1f;
+                    break;
+                case 2:
+                    tileColor = Color.White;
+                    Alpha = 0.8f;
+                    break;
+                default:
+                    iTileType = Type.NONE;
+                    Alpha = 0f;
+                    break;
+            }
+
+            tileSquare = new Square(100,100,tileColor);
+
+        }
+
+        public void Load(){
+            tileSquare.Load();
+        }
+
+        public void Draw(SpriteBatch spriteBatch){
+            //Console.WriteLine(ToString() + " | " + spriteBatch);
+            tileSquare.Draw(spriteBatch, position, Alpha);
+        }
+
+        public int GetWidth(){
+            return tileSquare.Width;
+        }
+
+        public int GetHeight(){
+            return tileSquare.Height;
         }
 
         public int GetTileNumber(){
@@ -51,11 +109,7 @@ namespace PathOfThal
         }
 
         public override string ToString(){
-            if(tileType == SOLID)
-                return "\'" + type;
-            else{
-                return " " + type;
-            }
+                return " " + tileType;
         }
     }
 }

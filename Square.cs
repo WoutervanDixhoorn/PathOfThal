@@ -48,7 +48,7 @@ namespace PathOfThal
 
 
         //TODO: FIX THE LOAD CODE COLOR DATA GET'S OVERWRITEN FOR SOME REASON!!!!
-        public void Load(GraphicsDevice iGraphicsDevice){
+        public void Load(){
             //GraphicsDevice newGraphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, new PresentationParameters());
 
             squareData = new Color[(width*height)];
@@ -70,8 +70,8 @@ namespace PathOfThal
                 }
             }
 
-            rect = new Texture2D(iGraphicsDevice, width, height);
-            border = new Texture2D(iGraphicsDevice, width, height);
+            rect = new Texture2D(ContentHandler.Instance.Graphics, width, height);
+            border = new Texture2D(ContentHandler.Instance.Graphics, width, height);
             rect.SetData(squareData);
             border.SetData(borderData);
         }

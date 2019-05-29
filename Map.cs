@@ -21,12 +21,27 @@ namespace PathOfThal
             layers = new List<MapLayer>();
             layers.AddRange(iLayers);
         }
+        
+        public void Load(){
+            foreach(MapLayer ml in layers){
+                for(int i = 0; i < ml.GetTerrain().GetTerrainData().GetLength(1); i++){
+                    for(int j = 0; j < ml.GetTerrain().GetTerrainData().GetLength(0); j++){
+                       
+                        ml.GetTerrain().GetTerrainData()[j,i].Load();
+                        //Set x and y value for each tile
+                        ml.GetTerrain().GetTerrainData()[j,i].X =  i *  ml.GetTerrain().GetTerrainData()[j,i].GetWidth();
+                        ml.GetTerrain().GetTerrainData()[j,i].Y =  j *  ml.GetTerrain().GetTerrainData()[j,i].GetHeight();
+
+                    }
+                }
+            }
+        }
 
         public void Draw(SpriteBatch spriteBatch){
             //spriteBatch.Draw();
         }
 
-        public void Draw(SpriteBatch spriteBatch, int x = 0, int y = 0, params Square[] rect){
+        public void Draw(SpriteBatch spriteBatch, int x = 0, int y = 0){
             int offsetx = x;
             int offesty = y;
 
@@ -34,13 +49,7 @@ namespace PathOfThal
 
                 for(int i = 0; i < mapLayer.GetTerrain().GetTerrainData().GetLength(1); i++){
                     for(int j = 0; j < mapLayer.GetTerrain().GetTerrainData().GetLength(0); j++){
-                        if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetTileNumber() == 0){
-                            //rect[0].Draw(spriteBatch, i * rect[0].Width + offsetx ,j * rect[0].Height + offesty);
-                        }else if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetTileNumber() == 1){
-                            rect[1].Draw(spriteBatch, i * rect[1].Width + offsetx ,j * rect[1].Height + offesty, 2f);
-                        }else if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetTileNumber() == 2){
-                            rect[2].Draw(spriteBatch, i * rect[1].Width + offsetx ,j * rect[1].Height + offesty, 0.5f);
-                        }
+                        mapLayer.GetTerrain().GetTerrainData()[j,i].Draw(spriteBatch);
                     }
                 }
             }
@@ -51,7 +60,7 @@ namespace PathOfThal
         public void DrawColisions(SpriteBatch spriteBatch){
             //TODO: 100 needs to be the size of the tiles
             Square col = new Square(100, 100, Color.Black, 2, Color.Black);
-            col.Load(spriteBatch.GraphicsDevice);
+            col.Load();
 
             foreach(MapLayer ml in layers){
 

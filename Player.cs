@@ -49,6 +49,8 @@ namespace PathOfThal
                 dir.Y = 0;
             }
 
+            Console.WriteLine(iMap.getTile((int)Position.X/100,(int)Position.Y/100));
+
             prevState = state;
 
             Position += dir;
@@ -76,8 +78,7 @@ namespace PathOfThal
         }
 
         //Collision Detection
-        public bool isCollidingLeft(Map iMap){
-            
+        public bool isCollidingLeft(Map iMap){ 
             return (iMap.getTile(GetX() + (int)dir.X, GetY()).GetTileType() == Tile.SOLID) || 
                     iMap.getTile(GetX() + (int)dir.X, GetY() + playerRect.Height).GetTileType() == Tile.SOLID;
             
