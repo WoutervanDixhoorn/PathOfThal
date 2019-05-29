@@ -16,6 +16,10 @@ namespace PathOfThal
             fontPath = iFontname;   
         }
 
+        public void Draw(SpriteBatch spriteBatch,string Text, int x, int y, int iScale, Color? iColor = null){
+            spriteBatch.DrawString(font, Text, new Vector2(x,y) + new Vector2(1 * iScale, 1 * iScale), iColor ?? Color.White, 0 , Vector2.Zero, iScale, SpriteEffects.None, 1f);
+        }
+
         public void Draw(SpriteBatch spriteBatch,string Text, int x, int y, Color? iColor = null){
             spriteBatch.DrawString(font, Text, new Vector2(x,y), iColor ?? Color.White);
         }

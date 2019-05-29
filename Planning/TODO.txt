@@ -9,5 +9,7 @@
     Todo now!
         *Make player move on gametime instead of loop speed
         *Add some sort of dialog system
+        *InputManager
+        *Use nuclex font so i dont have to use fixed font sizes
 */
 

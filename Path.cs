@@ -22,10 +22,13 @@ namespace PathOfThal
         bool ableToMove;
         Camera camera;
 
+        //Dialog
+        Dialog dialogTest;
+
         //ONLY IN DEBUG, SHOW COLLISION AND TILENUMBER. PRESS BUTTON Q OR W
         #if DEBUG
-        bool ShowCollision = true;
-        bool ShowTileNumber = true;
+        bool ShowCollision = false;
+        bool ShowTileNumber = false;
         #endif
 
         //InputHandling
@@ -40,6 +43,8 @@ namespace PathOfThal
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
+
+
         }
 
         protected override void Initialize()
@@ -48,7 +53,6 @@ namespace PathOfThal
 
             // TODO: Add your initialization logic here
             rect3 = new Square(size / 2, Color.White, 3);
-
             player = new Player(rect3, 2f);
             Direction = Vector2.Zero;
             previousPlayerPos = player.Position;
@@ -62,15 +66,16 @@ namespace PathOfThal
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            ContentHandler.Instance.Load(Content, GraphicsDevice);
             // TODO: use this.Content to load your game content here
 			MapParser mapParser = new MapParser();
 			map = mapParser.Parse("MapExample.txt");
 			Console.WriteLine(map.ToString());
-            ContentHandler.Instance.Load(Content, GraphicsDevice);
+            dialogTest = new Dialog("Hallo ik ben wouter");
             rect3.Load();
             map.Load();
             player.Load();
+            dialogTest.Load();
         }
 
         protected override void Update(GameTime gameTime)
@@ -119,11 +124,10 @@ namespace PathOfThal
                 map.DrawTileNumbers(spriteBatch);
             #endif
             
-
-           
-
             player.Draw(spriteBatch);
             spriteBatch.End();
+
+            dialogTest.Draw();
 
             base.Draw(gameTime);
         }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/MonoGame/PathOfThal/Content/CourierNew.spritefont</SourceFile>
-  <SourceTime>2019-05-28T12:33:41.6979439+02:00</SourceTime>
-  <DestFile>D:/MonoGame/PathOfThal/Content/bin/DesktopGL/CourierNew.xnb</DestFile>
-  <DestTime>2019-05-29T22:49:31.4306299+02:00</DestTime>
+  <SourceFile>D:/MonoGame/PathOfThal/Content/CourierNewDialog.spritefont</SourceFile>
+  <SourceTime>2019-05-29T23:25:15.9968224+02:00</SourceTime>
+  <DestFile>D:/MonoGame/PathOfThal/Content/bin/DesktopGL/CourierNewDialog.xnb</DestFile>
+  <DestTime>2019-05-29T23:25:20.7510594+02:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

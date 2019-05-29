@@ -5,8 +5,10 @@
   <Config />
   <SourceFiles>
     <File>D:/MonoGame/PathOfThal/Content/CourierNew.spritefont</File>
+    <File>D:/MonoGame/PathOfThal/Content/CourierNewDialog.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>
