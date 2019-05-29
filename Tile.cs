@@ -79,6 +79,10 @@ namespace PathOfThal
                     break;
             }
 
+            if(iType == 0){
+                tileType = Tile.NONE;
+            }
+
             tileSquare = new Square(100,100,tileColor);
 
         }
