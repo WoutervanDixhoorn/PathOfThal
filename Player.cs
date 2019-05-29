@@ -9,14 +9,14 @@ namespace PathOfThal
     {
         
         Square playerRect;
-        public int speed;
+        public float speed;
         Vector2 dir;
         public Vector2 Position;
 
         //TEMP INPUT HANDLING
         KeyboardState state;
         KeyboardState prevState;
-        public Player(Square rect, int iSpeed){
+        public Player(Square rect, float iSpeed){
             playerRect = rect;
             speed = iSpeed;
             Position = Vector2.Zero;
@@ -30,7 +30,7 @@ namespace PathOfThal
         public void Update(GameTime gameTime, Map iMap){
             KeyboardState state = Keyboard.GetState();
         
-            dir = new Vector2(IsButtonDown(Keys.Left, state, prevState) ? -1*speed : (IsButtonDown(Keys.Right, state, prevState) ? 1*speed : 0*speed) , IsButtonDown(Keys.Up, state, prevState) ? -1*speed : (IsButtonDown(Keys.Down, state, prevState) ? 1*speed : 0*speed));;
+            dir = new Vector2(IsButtonDown(Keys.Left, state, prevState) ? -1*speed : (IsButtonDown(Keys.Right, state, prevState) ? 1*speed : 0*speed) , IsButtonDown(Keys.Up, state, prevState) ? -1*speed: (IsButtonDown(Keys.Down, state, prevState) ? 1*speed : 0*speed));;
 
             //Console.WriteLine("Pos: " + (int)Position.X/100 + " " + (int)Position.Y/100);
 
@@ -57,7 +57,7 @@ namespace PathOfThal
         }
 
         public void Draw(SpriteBatch spriteBatch){
-            playerRect.Draw(spriteBatch, Position);
+            playerRect.DrawBorder(spriteBatch, Position);
         }
 
         public int GetX(){

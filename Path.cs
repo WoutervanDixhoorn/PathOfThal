@@ -22,6 +22,12 @@ namespace PathOfThal
         bool ableToMove;
         Camera camera;
 
+        //ONLY IN DEBUG, SHOW COLLISION AND TILENUMBER. PRESS BUTTON Q OR W
+        #if DEBUG
+        bool ShowCollision = true;
+        bool ShowTileNumber = true;
+        #endif
+
         //InputHandling
         KeyboardState previousState;
 
@@ -43,7 +49,7 @@ namespace PathOfThal
             // TODO: Add your initialization logic here
             rect3 = new Square(size / 2, Color.White, 3);
 
-            player = new Player(rect3, 2);
+            player = new Player(rect3, 2f);
             Direction = Vector2.Zero;
             previousPlayerPos = player.Position;
             ableToMove = true;
@@ -74,8 +80,21 @@ namespace PathOfThal
 
             //InputHandling
             KeyboardState state = Keyboard.GetState();
-           //TODO: ANYTHING THAT USES INPUT IN HERE!!         
+           //TODO: ANYTHING THAT USES INPUT IN HERE!!
+
+            //ONLY IN DEBUG, SHOW COLLISION AND TILENUMBER. PRESS BUTTON Q OR W
+            #if DEBUG
+            if(IsButtonPressed(Keys.Q, state)){
+                ShowCollision = !ShowCollision;
+            }else if(IsButtonPressed(Keys.W, state)){
+                ShowTileNumber = !ShowTileNumber;
+            }
+            #endif
+
             previousState = state;
+
+            //DEBUG Enable collision and tilenumbering
+
 
             //PlayerHandling
             player.Update(gameTime, map);
@@ -91,8 +110,18 @@ namespace PathOfThal
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
 			map.Draw(spriteBatch, 0, 0);
-            map.DrawColisions(spriteBatch);
-            map.DrawTileNumbers(spriteBatch);
+            
+            //ONLY IN DEBUG, SHOW COLLISION AND TILENUMBER. PRESS BUTTON Q OR W
+            #if DEBUG
+            if(ShowCollision)
+                map.DrawColisions(spriteBatch);
+            if(ShowTileNumber)
+                map.DrawTileNumbers(spriteBatch);
+            #endif
+            
+
+           
+
             player.Draw(spriteBatch);
             spriteBatch.End();
 

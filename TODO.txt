@@ -1,5 +1,13 @@
-*Polish square draw
-*Polish mapdraw
-*Fix collision
+**/
+    To polish
+        *Square.Draw()
+        *Map.Draw()
+        *Collision in player.cs
+*/
 
-*add some sort of dialog system
+**/
+    Todo now!
+        *Make player move on gametime instead of loop speed
+        *Add some sort of dialog system
+*/
+
