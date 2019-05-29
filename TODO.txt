@@ -1,0 +1,3 @@
+*Make tile draw itsself
+*Make mapDraw draw the tiles
+*Fix collision
