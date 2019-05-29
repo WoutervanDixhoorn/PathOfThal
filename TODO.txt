@@ -1,3 +1,5 @@
 *Polish square draw
 *Polish mapdraw
 *Fix collision
+
+*add some sort of dialog system

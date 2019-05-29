@@ -58,7 +58,7 @@ namespace PathOfThal
         }
 
         public void DrawColisions(SpriteBatch spriteBatch){
-            //TODO: 100 needs to be the size of the tiles
+            //TODO: 99 needs to be the size of the tiles
             Square col = new Square(100, 100, Color.Black, 2, Color.Black);
             col.Load();
 
@@ -84,7 +84,7 @@ namespace PathOfThal
 
                 for(int i = 0; i < ml.GetTerrain().GetTerrainData().GetLength(0); i++){
                     for(int j = 0; j < ml.GetTerrain().GetTerrainData().GetLength(1); j++){
-                        number.DrawBordered(spriteBatch, j + "," + i, j * 100, i * 100, Color.White, null, 0.8f);
+                        number.DrawBordered(spriteBatch, j + "," + i, j * 98, i * 98, Color.White, null, 0.8f);
                     }
                 }
             }
@@ -112,7 +112,7 @@ namespace PathOfThal
                 //Console.WriteLine("[GetTile] in bound");
                 //Console.WriteLine("[getTile]" + layers[Layer].GetTerrain().GetTerrainData()[((int)y / 100),((int)x / 100)].GetTileType() + "found at: X:" + ((int)x / 100) + " Y: " + ((int)y / 100));
 
-                return layers[Layer].GetTerrain().GetTerrainData()[((int)(y / 100)),((int)(x / 100))];
+                return layers[Layer].GetTerrain().GetTerrainData()[((y / 100)),((x / 100))];
             }
             
                 //TODO: Is probably a temporary solution, Want it be able to just return a null value
