@@ -47,5 +47,9 @@ namespace PathOfThal
             content.Unload();
         }
 
+        public SpriteFont GetSpriteFont(){
+            return font;
+        }
+
     }
 }

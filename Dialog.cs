@@ -1,3 +1,5 @@
+using System.Linq;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,6 +12,9 @@ namespace PathOfThal
         Text text;
         bool visible;
         int page;
+        string displayText = "";
+        string nextChar = "";
+        int pageTime = 0;
 
         //Screen info
         int viewWidth;
@@ -38,8 +43,48 @@ namespace PathOfThal
             text.Load();
         }
 
-        public void Update(){
+        public void Update(GameTime gameTime){
+            int LetterTime = gameTime.TotalGameTime.Milliseconds;
 
+
+            //Draw text letter by letter
+            if(LetterTime % 100 <= 3 && dialogText[page].Length > 0){
+                nextChar = dialogText[page].Substring(0,1);
+                dialogText[page] =  dialogText[page].Remove(0,1);
+                displayText += nextChar;
+
+                //Wrap text
+                //40 is a temp value, if not put there '\n' would kept adding. Need to fix this some how. 
+                //Only able to print 2 lines right now
+                //120 is a temp value, as long as it work will keep it there
+                if(text.GetSpriteFont().MeasureString(displayText).X > viewWidth - 120 && text.GetSpriteFont().MeasureString(displayText).Y < 40){
+                    
+                    //check for closest space, dot or comma
+                    if(nextChar == " " || nextChar == "," || nextChar == "."){
+                        displayText += '\n';
+                    }
+                }
+            }
+
+            //change page. Temp, want the player to do it by him self or after like 10 sec
+            if(dialogText[page].Length == 0 && page < dialogText.Length - 1){
+                pageTime += gameTime.ElapsedGameTime.Milliseconds;
+                if(pageTime > 3000){
+                    displayText = string.Empty;
+                    page++;
+                    pageTime = 0;
+                }   
+            }
+
+            //Space to speed text up
+            if(true){
+
+            }
+
+            //Enter to go to next page
+            if(true){
+
+            }
         }
 
         public void Draw(){
@@ -47,7 +92,7 @@ namespace PathOfThal
             outline.Draw(spriteBatch, new Vector2(0,15));
             backGround.Draw(spriteBatch, new Vector2(0,20));
             
-            text.Draw(spriteBatch,dialogText[page],10,25);
+            text.Draw(spriteBatch,displayText,10,25);
 
             spriteBatch.End();
         }

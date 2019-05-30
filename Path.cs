@@ -71,7 +71,7 @@ namespace PathOfThal
 			MapParser mapParser = new MapParser();
 			map = mapParser.Parse("MapExample.txt");
 			Console.WriteLine(map.ToString());
-            dialogTest = new Dialog("Hallo ik ben wouter");
+            dialogTest = new Dialog("Hallo ik ben wouter dit is een text om te kijken of het dialog system goed functioneerd.", "Hallo pagina 2");
             rect3.Load();
             map.Load();
             player.Load();
@@ -103,6 +103,7 @@ namespace PathOfThal
 
             //PlayerHandling
             player.Update(gameTime, map);
+            dialogTest.Update(gameTime);
 
             //Camera
             camera.Update(gameTime, this, GraphicsDevice.Viewport);
