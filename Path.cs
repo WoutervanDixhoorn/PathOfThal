@@ -84,22 +84,16 @@ namespace PathOfThal
                 Exit();
 
             //InputHandling
-            KeyboardState state = Keyboard.GetState();
-           //TODO: ANYTHING THAT USES INPUT IN HERE!!
+            InputManger.Update();
 
             //ONLY IN DEBUG, SHOW COLLISION AND TILENUMBER. PRESS BUTTON Q OR W
             #if DEBUG
-            if(IsButtonPressed(Keys.Q, state)){
+            if(InputManger.IsKeyPressed(Keys.Q)){
                 ShowCollision = !ShowCollision;
-            }else if(IsButtonPressed(Keys.W, state)){
+            }else if(InputManger.IsKeyPressed(Keys.Q)){
                 ShowTileNumber = !ShowTileNumber;
             }
             #endif
-
-            previousState = state;
-
-            //DEBUG Enable collision and tilenumbering
-
 
             //PlayerHandling
             player.Update(gameTime, map);
@@ -107,6 +101,7 @@ namespace PathOfThal
 
             //Camera
             camera.Update(gameTime, this, GraphicsDevice.Viewport);
+
             base.Update(gameTime);
         }
 
@@ -131,18 +126,6 @@ namespace PathOfThal
             dialogTest.Draw();
 
             base.Draw(gameTime);
-        }
-
-        public bool IsButtonPressed(Keys key, KeyboardState state){
-            return (state.IsKeyDown(key) && !previousState.IsKeyDown(key));
-        }
-
-        public bool IsButtonDown(Keys key, KeyboardState state){
-            return (state.IsKeyDown(key));
-        }
-
-        public bool isButtonReleased(Keys key, KeyboardState state){
-            return (state.IsKeyUp(key)) && previousState.IsKeyUp(key);
         }
     }
 }

@@ -1,7 +1,8 @@
-using System.Linq;
+
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace PathOfThal
 {
@@ -10,11 +11,15 @@ namespace PathOfThal
         
         string[] dialogText;
         Text text;
-        bool visible;
+        bool visible = true;
+        bool done = false;
         int page;
         string displayText = "";
         string nextChar = "";
         int pageTime = 0;
+
+        int letterSpeed = 3;
+        int pageSpeed = 3;
 
         //Screen info
         int viewWidth;
@@ -43,12 +48,18 @@ namespace PathOfThal
             text.Load();
         }
 
+        public void Unload(){
+
+        }
+
         public void Update(GameTime gameTime){
+            //Update logic outside dialog
+
+
             int LetterTime = gameTime.TotalGameTime.Milliseconds;
 
-
             //Draw text letter by letter
-            if(LetterTime % 100 <= 3 && dialogText[page].Length > 0){
+            if(LetterTime % 100 <= letterSpeed && dialogText[page].Length > 0){
                 nextChar = dialogText[page].Substring(0,1);
                 dialogText[page] =  dialogText[page].Remove(0,1);
                 displayText += nextChar;
@@ -69,32 +80,51 @@ namespace PathOfThal
             //change page. Temp, want the player to do it by him self or after like 10 sec
             if(dialogText[page].Length == 0 && page < dialogText.Length - 1){
                 pageTime += gameTime.ElapsedGameTime.Milliseconds;
-                if(pageTime > 3000){
+                if(pageTime > pageSpeed * 1000){
                     displayText = string.Empty;
                     page++;
                     pageTime = 0;
                 }   
+            }else if(page == dialogText.Length - 1 && dialogText[page].Length == 0){
+                done = true;
             }
 
             //Space to speed text up
-            if(true){
-
+            if(InputManger.IsKeyDown(Keys.Space)){
+                letterSpeed = 80;
+                pageSpeed = 1;
+            }else{
+                letterSpeed = 3;
+                pageSpeed = 3;
             }
 
             //Enter to go to next page
-            if(true){
+            if(InputManger.IsKeyDown(Keys.Enter) && page < dialogText.Length - 1){
+                displayText = string.Empty;
+                page++;
+                pageTime = 0;
+            }
 
+            //Make dialog inviseble after al pages
+            if(InputManger.IsKeyReleased(Keys.Enter) && done){
+                visible = false;
             }
         }
 
         public void Draw(){
             spriteBatch.Begin();
-            outline.Draw(spriteBatch, new Vector2(0,15));
-            backGround.Draw(spriteBatch, new Vector2(0,20));
-            
-            text.Draw(spriteBatch,displayText,10,25);
+
+            if(visible){
+                outline.Draw(spriteBatch, new Vector2(0,15));
+                backGround.Draw(spriteBatch, new Vector2(0,20));
+                text.Draw(spriteBatch,displayText,10,25);
+            }
 
             spriteBatch.End();
+        }
+
+        public void NextPage(){
+            
         }
     }
 }
