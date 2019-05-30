@@ -3,13 +3,15 @@
         *Square.Draw()
         *Map.Draw()
         *Collision in player.cs
+        *dialog system
 */
 
 **/
     Todo now!
         *Make player move on gametime instead of loop speed
-        *Add some sort of dialog system
         *InputManager
         *Use nuclex font so i dont have to use fixed font sizes
+        *Loading events and ref to event file from map file
+        *Make player interact with events
 */
 

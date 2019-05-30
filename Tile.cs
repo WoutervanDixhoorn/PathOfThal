@@ -11,6 +11,8 @@ namespace PathOfThal
         Type tileType;
         Square tileSquare;
 
+        string eventRef; 
+
         public int X{
             get{
                 return (int)position.X;
@@ -32,6 +34,7 @@ namespace PathOfThal
         public enum Type{
             NONE,
             TILE,
+            EVENT,
             SOLID
         }
 
@@ -51,6 +54,12 @@ namespace PathOfThal
         public static Type TILE{
             get{
                 return Type.TILE;
+            }
+        }
+
+        public static Type EVENT{
+            get{
+                return Type.EVENT;
             }
         }
 

@@ -12,14 +12,14 @@ namespace PathOfThal
         public enum Section{
             LAYERS,
             COLISION,
-            SCRIPTREGION,
+            EVENT,
             END
         }
 
         #region Section getters
         public static Section LAYERS {get{return Section.LAYERS;}}
         public static Section COLISION {get{return Section.COLISION;}}
-        public static Section SCRIPTREGION {get{return Section.SCRIPTREGION;}}
+        public static Section EVENT {get{return Section.EVENT;}}
         public static Section END {get{return Section.END;}}
         #endregion
 
@@ -30,6 +30,7 @@ namespace PathOfThal
         Tile currentTile = new Tile(0,0,0);
         List<Tile> currentTerrainLine;
         List<List<Tile>> currentTerrain;
+
 
         //Setup the mapParser
         public MapParser(){
@@ -108,6 +109,8 @@ namespace PathOfThal
                                 //Console.WriteLine("Ending collsion");
                                 section = Section.LAYERS;
                             }
+                        }else if(section == EVENT){
+
                         }else{
                             Console.WriteLine("Parsing map succes!");
                         }
