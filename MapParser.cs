@@ -13,6 +13,7 @@ namespace PathOfThal
             LAYERS,
             COLISION,
             EVENT,
+            EVENTNAME,
             END
         }
 
@@ -20,6 +21,7 @@ namespace PathOfThal
         public static Section LAYERS {get{return Section.LAYERS;}}
         public static Section COLISION {get{return Section.COLISION;}}
         public static Section EVENT {get{return Section.EVENT;}}
+        public static Section EVENTNAME {get{return Section.EVENTNAME;}}
         public static Section END {get{return Section.END;}}
         #endregion
 
@@ -31,11 +33,14 @@ namespace PathOfThal
         List<Tile> currentTerrainLine;
         List<List<Tile>> currentTerrain;
 
+        //Event Parse
+        string currentEvent;
 
         //Setup the mapParser
         public MapParser(){
             currentTerrainLine = new List<Tile>();
             currentTerrain = new List<List<Tile>>();
+            currentEvent = string.Empty;
         }
 
         /// <summary> 
@@ -52,27 +57,27 @@ namespace PathOfThal
             if(mapData != string.Empty){
                 //Loops trough every char and determinates where it needs to go
                 foreach(char c in mapData){
-                    if(skipLine && isUseless(c)){
+                    if(skipLine && Utility.isUseless(c)){
                         skipLine = false;
-                    } else if(isComment(c)){
+                    } else if(Utility.isComment(c)){
                         skipLine = true;
                     } else if(!skipLine){
                         
                         if(section == Section.LAYERS){
-                            if(isUseless(c)){
+                            if(Utility.isUseless(c)){
                                 //DoNothing
-                            }else if(isComma(c)){
+                            }else if(Utility.isComma(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTile = new Tile(0,0,0);
                                 //Go to next tile
-                            } else if(isNum(c)){
+                            } else if(Utility.isNum(c)){
                                 currentTile = new Tile((c - '0'),0,0);
-                            } else if(isDash(c)){
+                            } else if(Utility.isDash(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTerrain.Add(currentTerrainLine);
                                 currentTile = new Tile(0,0,0);;
                                 currentTerrainLine = new List<Tile>();
-                            } else if(isAnd(c)){
+                            } else if(Utility.isAnd(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTerrain.Add(currentTerrainLine);
                                 currentTile = new Tile(0,0,0);;
@@ -81,7 +86,7 @@ namespace PathOfThal
                                 currentTerrain = new List<List<Tile>>();
                                 layers.Add(new MapLayer(terrain));
                                 terrain = new Terrain();
-                            } else if(isStar(c)){
+                            } else if(Utility.isStar(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTerrain.Add(currentTerrainLine);
                                 currentTile = new Tile(0,0,0);;
@@ -91,9 +96,9 @@ namespace PathOfThal
                                 layers.Add(new MapLayer(terrain));
                                 terrain = new Terrain();
                                 section = END;
-                            }else if(isOpenBracket(c)){
+                            }else if(Utility.isOpenBracket(c)){
                                 section = COLISION;
-                            } else if(isOpenCurlBracket(c)){
+                            } else if(Utility.isOpenCurlBracket(c)){
                                 section = EVENT;
                             }else {
                                 throw new Exception("Expected a number");
@@ -101,29 +106,37 @@ namespace PathOfThal
 
                         } else if(section == COLISION){
                             //Console.WriteLine("Reached collsion");
-                            if(isNum(c)){
+                            if(Utility.isNum(c)){
                                 currentTile = new Tile((c - '0'),0,0, Tile.SOLID);
-                            } else if(isComma(c)){
+                            } else if(Utility.isComma(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTile = new Tile(0,0,0);
                                 //Go to next tile
-                            } else if(isClosedBracket(c)){
+                            } else if(Utility.isClosedBracket(c)){
                                 //Console.WriteLine("Ending collsion");
                                 section = Section.LAYERS;
                             }
                         }else if(section == EVENT){
-
-                            if(isNum(c)){
+                            if(Utility.IsDoubleQuote(c)){
+                                section = EVENTNAME;
+                            } else if(Utility.isNum(c)){
                                 currentTile = new Tile((c - '0'),0,0, Tile.EVENT, "hallo");
-                            } else if(isComma(c)){
+                            } else if(Utility.isComma(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTile = new Tile(0,0,0);
                                 //Go to next tile
-                            } else if(isClosedCurlBracket(c)){
+                            } else if(Utility.isClosedCurlBracket(c)){
                                 //Console.WriteLine("Ending collsion");
                                 section = Section.LAYERS;
                             }
 
+                        }else if(section == EVENTNAME){
+                            if(Utility.IsChar(c)){
+                                currentEvent += c;
+                            }else if(Utility.IsDoubleQuote(c)){
+                                currentEvent += c;
+                                section = EVENT;
+                            }   
                         }else{
                             Console.WriteLine("Parsing map succes!");
                         }
@@ -133,52 +146,5 @@ namespace PathOfThal
 
             return new Map(layers);
         }
-
-        #region Utility
-
-        public bool isOpenBracket(char c){
-            return c == '[';
-        }
-
-        public bool isClosedCurlBracket(char c){
-            return c == '}';
-        }
-
-                public bool isOpenCurlBracket(char c){
-            return c == '{';
-        }
-
-        public bool isClosedBracket(char c){
-            return c == ']';
-        }
-
-        public bool isUseless(char c){
-            return c == '\r' || c == '\n';
-        }
-        public bool isComment(char c){
-            return c == '#';
-        }
-
-        public bool isStar(char c){
-            return c == '*';
-        }
-
-        public bool isAnd(char c){
-            return c == '&';
-        }
-
-        public bool isDash(char c){
-            return c == '-';
-        }
-
-        public bool isNum(char c){
-            return Char.IsDigit(c);
-        }
-
-        public bool isComma(char c){
-            return c == ',';
-        }
-
-        #endregion
     }
 }
