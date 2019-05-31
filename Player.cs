@@ -13,44 +13,38 @@ namespace PathOfThal
         Vector2 dir;
         public Vector2 Position;
 
-        //TEMP INPUT HANDLING
-        KeyboardState state;
-        KeyboardState prevState;
+        Map map;
+
         public Player(Square rect, float iSpeed){
             playerRect = rect;
             speed = iSpeed;
             Position = Vector2.Zero;
-            state = Keyboard.GetState();
         }
 
-        public void Load(){
-
+        public void Load(Map iMap){
+            map = iMap;
         }
 
-        public void Update(GameTime gameTime, Map iMap){
+        public void Update(GameTime gameTime){
             KeyboardState state = Keyboard.GetState();
         
-            dir = new Vector2(IsButtonDown(Keys.Left, state, prevState) ? -1*speed : (IsButtonDown(Keys.Right, state, prevState) ? 1*speed : 0*speed) , IsButtonDown(Keys.Up, state, prevState) ? -1*speed: (IsButtonDown(Keys.Down, state, prevState) ? 1*speed : 0*speed));;
+            dir = new Vector2(InputManger.IsKeyDown(Keys.Left) ? -1*speed : (InputManger.IsKeyDown(Keys.Right) ? 1*speed : 0*speed) , InputManger.IsKeyDown(Keys.Up) ? -1*speed: (InputManger.IsKeyDown(Keys.Down) ? 1*speed : 0*speed));;
 
             //Console.WriteLine("Pos: " + (int)Position.X/100 + " " + (int)Position.Y/100);
-
-            //TODO: Collision needs to work from all directions
-            //      And player glitches when coliding, need to handle the position
-            //PROBLEM: The lower you get in the map the more distance between you an the collider
-            if(dir.X > 0 && isCollidingRight(iMap)){
+                
+            //TODO: Fix pixel gap between colider and player
+            if(dir.X > 0 && isCollidingRight(map)){
                 dir.X = 0;
             }
-            if(dir.X < 0 && isCollidingLeft(iMap)){
+            if(dir.X < 0 && isCollidingLeft(map)){
                 dir.X = 0;
             }
-            if(dir.Y < 0 && isCollidingTop(iMap)){
+            if(dir.Y < 0 && isCollidingTop(map)){
                 dir.Y = 0;
             }
-            if(dir.Y > 0 && isCollidingBottom(iMap)){
+            if(dir.Y > 0 && isCollidingBottom(map)){
                 dir.Y = 0;
             }
-
-            prevState = state;
 
             Position += dir;
             //dir = Vector2.Zero;
@@ -90,23 +84,83 @@ namespace PathOfThal
         }
         public bool isCollidingBottom(Map iMap){
             //Console.WriteLine((GetX() + playerRect.Width)/100 + " | " + ((GetY() + GetHeight() + (int)dir.Y)/100));
+            Console.WriteLine(iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() + (int)dir.Y)).GetTileType());
             return (iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() + (int)dir.Y)).GetTileType() == Tile.SOLID) ||
                     iMap.getTile((GetX()),GetY() + GetHeight() + (int)dir.Y).GetTileType() == Tile.SOLID;  
         }
 
-        //TEMP INPUT HANDLING
-        #region tempInput
-        public bool IsButtonPressed(Keys key, KeyboardState state, KeyboardState previousState){
-            return (state.IsKeyDown(key) && !previousState.IsKeyDown(key));
+        //Event Detection
+        public string isEventLeft(Map iMap){
+            string Event = ""; 
+
+            if(iMap.getTile(GetX() + (int)dir.X, GetY()).GetTileType() == Tile.EVENT){
+                Event = iMap.getTile(GetX() + (int)dir.X, GetY()).GetEventRef();
+            }else if(iMap.getTile(GetX() + (int)dir.X, GetY() + playerRect.Height).GetTileType() == Tile.EVENT){
+                Event = iMap.getTile(GetX() + (int)dir.X, GetY() + playerRect.Height).GetEventRef();
+            }
+
+            return Event;
+        }
+        public string isEventRight(Map iMap){
+            string Event = "";
+
+            if(iMap.getTile(GetX() + playerRect.Width + (int)dir.X, GetY()).GetTileType() == Tile.EVENT){
+                Event = iMap.getTile(GetX() + playerRect.Width + (int)dir.X, GetY()).GetEventRef();
+            }else if(iMap.getTile(GetX() + playerRect.Width + (int)dir.X, GetY() + playerRect.Height).GetTileType() == Tile.EVENT){
+                Event = iMap.getTile(GetX() + playerRect.Width + (int)dir.X, GetY() + playerRect.Height).GetEventRef();
+            }
+                     
+            return Event;      }
+        public string isEventTop(Map iMap){
+            string Event = "";
+
+            if(iMap.getTile((GetX() + playerRect.Width), (GetY()) + (int)dir.Y).GetTileType() == Tile.EVENT){
+                Event = iMap.getTile((GetX() + playerRect.Width), (GetY()) + (int)dir.Y).GetEventRef();
+            }else if(iMap.getTile((GetX()), (GetY()) + (int)dir.Y).GetTileType() == Tile.EVENT){
+                Event = iMap.getTile((GetX()), (GetY()) + (int)dir.Y).GetEventRef();
+            }
+
+            return Event;  
+        }
+        public string isEventBottom(Map iMap){
+            string Event  = "";
+
+            if(iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() + (int)dir.Y)).GetTileType() == Tile.EVENT){
+                Event = iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() + (int)dir.Y)).GetEventRef();
+            }else if(iMap.getTile((GetX()),GetY() + GetHeight() + (int)dir.Y).GetTileType() == Tile.EVENT){
+                Event = iMap.getTile((GetX()),GetY() + GetHeight() + (int)dir.Y).GetEventRef();
+            }
+
+            return Event; 
         }
 
-        public bool IsButtonDown(Keys key, KeyboardState state, KeyboardState previousState){
-            return (state.IsKeyDown(key));
-        }
+        public IEvent currentEvent(){
+            IEvent EventObject = null;
 
-        public bool isButtonReleased(Keys key, KeyboardState state, KeyboardState previousState){
-            return (state.IsKeyUp(key)) && previousState.IsKeyUp(key);
+
+            if(dir.X > 0 && isEventRight(map) != string.Empty){
+                
+                EventObject = new Dialog("Hallo ik ben wouter");
+
+            }
+            if(dir.X < 0 && isEventLeft(map) != string.Empty){
+                
+                EventObject = new Dialog("Hallo ik ben wouter");
+
+            }
+            if(dir.Y < 0 && isEventTop(map) != string.Empty){
+                
+                EventObject = new Dialog("Hallo ik ben wouter");
+
+            }
+            if(dir.Y > 0 && isEventBottom(map) != string.Empty){
+                
+                EventObject = new Dialog("Hallo ik ben wouter");
+
+            }
+
+
+            return EventObject;
         }
-        #endregion
     }
 }

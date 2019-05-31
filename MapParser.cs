@@ -93,7 +93,9 @@ namespace PathOfThal
                                 section = END;
                             }else if(isOpenBracket(c)){
                                 section = COLISION;
-                            } else {
+                            } else if(isOpenCurlBracket(c)){
+                                section = EVENT;
+                            }else {
                                 throw new Exception("Expected a number");
                             }
 
@@ -111,6 +113,17 @@ namespace PathOfThal
                             }
                         }else if(section == EVENT){
 
+                            if(isNum(c)){
+                                currentTile = new Tile((c - '0'),0,0, Tile.EVENT, "hallo");
+                            } else if(isComma(c)){
+                                currentTerrainLine.Add(currentTile);
+                                currentTile = new Tile(0,0,0);
+                                //Go to next tile
+                            } else if(isClosedCurlBracket(c)){
+                                //Console.WriteLine("Ending collsion");
+                                section = Section.LAYERS;
+                            }
+
                         }else{
                             Console.WriteLine("Parsing map succes!");
                         }
@@ -125,6 +138,14 @@ namespace PathOfThal
 
         public bool isOpenBracket(char c){
             return c == '[';
+        }
+
+        public bool isClosedCurlBracket(char c){
+            return c == '}';
+        }
+
+                public bool isOpenCurlBracket(char c){
+            return c == '{';
         }
 
         public bool isClosedBracket(char c){

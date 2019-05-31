@@ -65,10 +65,11 @@ namespace PathOfThal
 
         #endregion
 
-        public Tile(int iType, int x, int y, Type iTileType = Type.TILE){
+        public Tile(int iType, int x, int y, Type iTileType = Type.TILE, string iEventRef = ""){
             type = iType;
             tileType = iTileType;
             position = new Vector2(x,y);
+            eventRef = iEventRef;
 
             //Declare tile color
             //TODO: There is probably a better way to find the color
@@ -119,6 +120,10 @@ namespace PathOfThal
 
         public Type GetTileType(){
             return tileType;
+        }
+
+        public string GetEventRef(){
+            return eventRef;
         }
 
         public override string ToString(){

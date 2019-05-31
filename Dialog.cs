@@ -6,18 +6,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace PathOfThal
 {
-    public class Dialog
+    public class Dialog : IEvent
     {
         
         string[] dialogText;
         Text text;
-        bool visible = true;
+        bool visible = false;
         bool done = false;
+        bool eventDone = false;
         int page;
         string displayText = "";
         string nextChar = "";
         int pageTime = 0;
-
         int letterSpeed = 3;
         int pageSpeed = 3;
 
@@ -37,7 +37,7 @@ namespace PathOfThal
             page = 0;
         }
 
-        public void Load(){
+        public void LoadEvent(){
             viewWidth = ContentHandler.Instance.Graphics.Viewport.Width;
             viewHeight = ContentHandler.Instance.Graphics.Viewport.Height;
             backGround = new Square(viewWidth, viewHeight/4, Color.Black);
@@ -46,15 +46,19 @@ namespace PathOfThal
             outline.Load();
             text = new Text("CourierNewDialog");
             text.Load();
+            visible = true;
         }
 
-        public void Unload(){
-
+        public void UnloadEvent(){
+            backGround.Unload();
+            outline.Unload();
+            text.Unload();
+            eventDone = true;
+            visible = false;
         }
 
-        public void Update(GameTime gameTime){
+        public void UpdateEvent(GameTime gameTime){
             //Update logic outside dialog
-
 
             int LetterTime = gameTime.TotalGameTime.Milliseconds;
 
@@ -107,11 +111,11 @@ namespace PathOfThal
 
             //Make dialog inviseble after al pages
             if(InputManger.IsKeyReleased(Keys.Enter) && done){
-                visible = false;
+                UnloadEvent();
             }
         }
 
-        public void Draw(){
+        public void DrawEvent(){
             spriteBatch.Begin();
 
             if(visible){
@@ -123,8 +127,13 @@ namespace PathOfThal
             spriteBatch.End();
         }
 
-        public void NextPage(){
-            
+        public void DrawEvent(SpriteBatch spriteBatch){
+
         }
+
+        public bool Done(){
+            return eventDone;
+        }
+        
     }
 }

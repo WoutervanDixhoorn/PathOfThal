@@ -76,6 +76,10 @@ namespace PathOfThal
             border.SetData(borderData);
         }
         
+        public void Unload(){
+            rect.Dispose();
+            border.Dispose();
+        }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 iPosition, float iAlpha = 1){
             spriteBatch.Draw(rect, iPosition, Color.White * iAlpha);
