@@ -3,7 +3,7 @@ using System.Linq;
 using System;
 using System.IO;
 
-namespace PathOfThal.Planning
+namespace PathOfThal
 {
     public class EventParser
     {

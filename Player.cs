@@ -12,7 +12,7 @@ namespace PathOfThal
         public float speed;
         Vector2 dir;
         public Vector2 Position;
-
+    
         Map map;
 
         public Player(Square rect, float iSpeed){
@@ -134,33 +134,33 @@ namespace PathOfThal
             return Event; 
         }
 
-        public IEvent currentEvent(){
-            IEvent EventObject = null;
+        public string currentEvent(){
+            string EventString = string.Empty;
 
 
             if(dir.X > 0 && isEventRight(map) != string.Empty){
                 
-                EventObject = new Dialog("Hallo ik ben wouter");
+                EventString = isEventRight(map);;
 
             }
             if(dir.X < 0 && isEventLeft(map) != string.Empty){
                 
-                EventObject = new Dialog("Hallo ik ben wouter");
+                EventString = isEventLeft(map);
 
             }
             if(dir.Y < 0 && isEventTop(map) != string.Empty){
                 
-                EventObject = new Dialog("Hallo ik ben wouter");
+                EventString = isEventTop(map);
 
             }
             if(dir.Y > 0 && isEventBottom(map) != string.Empty){
                 
-                EventObject = new Dialog("Hallo ik ben wouter");
+                EventString = isEventTop(map);
 
             }
 
 
-            return EventObject;
+            return EventString;
         }
     }
 }

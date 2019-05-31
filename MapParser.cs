@@ -120,7 +120,7 @@ namespace PathOfThal
                             if(Utility.IsDoubleQuote(c)){
                                 section = EVENTNAME;
                             } else if(Utility.isNum(c)){
-                                currentTile = new Tile((c - '0'),0,0, Tile.EVENT, "hallo");
+                                currentTile = new Tile((c - '0'),0,0, Tile.EVENT, currentEvent);
                             } else if(Utility.isComma(c)){
                                 currentTerrainLine.Add(currentTile);
                                 currentTile = new Tile(0,0,0);
