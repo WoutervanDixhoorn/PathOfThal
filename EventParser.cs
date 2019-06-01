@@ -26,10 +26,7 @@ namespace PathOfThal
         public Section currentSection;
 
         public EventParser(){
-            currentSection = Section.TYPE;
-            DialogText = new List<string>();
-            Type = string.Empty;
-            currentDialogLine = String.Empty;
+
         }
 
         public IEvent ParseEvent(string iFileName){
@@ -38,7 +35,13 @@ namespace PathOfThal
             eventData = File.ReadAllText(iFileName);
 
             if(eventData != string.Empty){
-                
+                //Reset some vars because parser is declared once
+                currentSection = Section.TYPE;
+                DialogText = new List<string>();
+                Type = string.Empty;
+                currentDialogLine = String.Empty;
+
+                //Parse event
                 foreach(char c in eventData){
                     if(currentSection == Section.TYPE){
                         if(Utility.IsQuote(c)){
@@ -61,7 +64,7 @@ namespace PathOfThal
                         if(Utility.IsDoubleQuote(c)){
                             currentSection = Section.DATA;
                             DialogText.Add(currentDialogLine);
-                            currentDialogLine = string.Empty;
+                            currentDialogLine = "";
                         }else if(Utility.IsChar(c) || Utility.isNum(c)){
                             currentDialogLine += c;
                         }

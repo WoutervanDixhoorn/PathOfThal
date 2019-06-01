@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -21,7 +22,7 @@ namespace PathOfThal
 
         public static void Update(GameTime gameTime,Player player){
             //Gametime is temp, i dont delete the event
-            if(running == false && gameTime.TotalGameTime.Seconds < 10){
+            if(running == false){
                 currentEventString = player.currentEvent();
             }
             //TODO: FIX EVENT PARSER
@@ -35,13 +36,17 @@ namespace PathOfThal
 
                 currentEvent.LoadEvent();
             }
+            
+            Console.WriteLine(currentEventString);
 
             if(running){
                 currentEvent.UpdateEvent(gameTime);
                 if(currentEvent.Done()){
                     running = false;
                     currentEvent.UnloadEvent();
+                    currentEventString = "";
                     currentEvent = null;
+                    player.GetCurrentMap().ToString();
                 }
             }
 
@@ -57,7 +62,7 @@ namespace PathOfThal
 
         public static void Draw(SpriteBatch spriteBatch){
             if(currentEvent != null){
-                    currentEvent.DrawEvent(spriteBatch);
+                currentEvent.DrawEvent(spriteBatch);
             }
         }
 

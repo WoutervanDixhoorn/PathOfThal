@@ -12,6 +12,7 @@
         *Use nuclex font so i dont have to use fixed font sizes
         *Loading events and ref to event file from map file
         *Make player interact with events
-        *Remove rty catch in eventhandler draw
+        *Clean up Interface events
+        *Remove time restriction from events
 */
 

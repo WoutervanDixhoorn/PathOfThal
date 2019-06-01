@@ -131,7 +131,7 @@ namespace PathOfThal
         }
 
         public override string ToString(){
-                return " " + tileType;
+                return " " + tileType + " " + eventRef;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace PathOfThal
             outline.Load();
             text = new Text("CourierNewDialog");
             text.Load();
-            visible = true;
+            eventDone = false;
         }
 
         public void UnloadEvent(){
@@ -113,18 +113,15 @@ namespace PathOfThal
             //Make dialog inviseble after al pages
             if(InputManger.IsKeyReleased(Keys.Enter) && done){
                 UnloadEvent();
+                eventDone = true;
             }
         }
 
         public void DrawEvent(SpriteBatch iSpriteBatch){
             spriteBatch.Begin();
-
-            if(visible){
                 outline.Draw(spriteBatch, new Vector2(0,15));
                 backGround.Draw(spriteBatch, new Vector2(0,20));
                 text.Draw(spriteBatch,displayText,10,25);
-            }
-
             spriteBatch.End();
         }
 
