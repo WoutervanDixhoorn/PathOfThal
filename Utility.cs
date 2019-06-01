@@ -7,7 +7,7 @@ namespace PathOfThal
         
 
         public static bool IsChar(char c){
-            return Char.IsLetter(c);
+            return Char.IsLetter(c) || c == ' ';
         }
 
         public static bool IsQuote(char c){

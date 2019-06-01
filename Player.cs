@@ -70,6 +70,10 @@ namespace PathOfThal
             return playerRect.Height;
         }
 
+        public Map GetCurrentMap(){
+            return map;
+        }
+
         //Collision Detection
         public bool isCollidingLeft(Map iMap){ 
             return ((iMap.getTile(GetX() + (int)dir.X, GetY()).GetTileType() == Tile.SOLID) || 
@@ -84,7 +88,7 @@ namespace PathOfThal
         }
         public bool isCollidingBottom(Map iMap){
             //Console.WriteLine((GetX() + playerRect.Width)/100 + " | " + ((GetY() + GetHeight() + (int)dir.Y)/100));
-            Console.WriteLine(iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() + (int)dir.Y)).GetTileType());
+            //Console.WriteLine(iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() + (int)dir.Y)).GetTileType());
             return (iMap.getTile((GetX() + playerRect.Width), (GetY() + GetHeight() + (int)dir.Y)).GetTileType() == Tile.SOLID) ||
                     iMap.getTile((GetX()),GetY() + GetHeight() + (int)dir.Y).GetTileType() == Tile.SOLID;  
         }
@@ -139,8 +143,7 @@ namespace PathOfThal
 
 
             if(dir.X > 0 && isEventRight(map) != string.Empty){
-                
-                EventString = isEventRight(map);;
+                EventString = isEventRight(map);
 
             }
             if(dir.X < 0 && isEventLeft(map) != string.Empty){

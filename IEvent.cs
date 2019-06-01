@@ -11,10 +11,10 @@ namespace PathOfThal
         void UpdateEvent(GameTime gameTime);
 
         void UnloadEvent();
-
-        void DrawEvent();
         void DrawEvent(SpriteBatch spriteBatch);
 
         bool Done();
+
+        string ToString();
     }
 }

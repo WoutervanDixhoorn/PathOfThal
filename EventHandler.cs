@@ -13,10 +13,10 @@ namespace PathOfThal
         static string currentEventString;
         static IEvent currentEvent;
         static bool running = false;
-        static EventParser parser;
+        public static EventParser parser = new EventParser();
 
         public EventHandler(){
-            parser = new EventParser();
+        
         }
 
         public static void Update(GameTime gameTime,Player player){
@@ -24,10 +24,15 @@ namespace PathOfThal
             if(running == false && gameTime.TotalGameTime.Seconds < 10){
                 currentEventString = player.currentEvent();
             }
-
-            if(currentEvent != null && running == false){
+            //TODO: FIX EVENT PARSER
+            if(currentEventString != string.Empty && running == false){
                 running = true;
-                currentEvent = parser.ParseEvent(currentEventString);
+                try{
+                    currentEvent = parser.ParseEvent(currentEventString + ".txt");
+                }finally{
+                    player.GetCurrentMap().RemoveEventRef(currentEventString);
+                }
+
                 currentEvent.LoadEvent();
             }
 
@@ -52,11 +57,7 @@ namespace PathOfThal
 
         public static void Draw(SpriteBatch spriteBatch){
             if(currentEvent != null){
-                try{
-                    currentEvent.DrawEvent();
-                }finally{
                     currentEvent.DrawEvent(spriteBatch);
-                }
             }
         }
 

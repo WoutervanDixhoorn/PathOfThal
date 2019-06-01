@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -19,7 +20,8 @@ namespace PathOfThal
             TYPEDATA,
             DATA,
             DATADATA,
-            DONE
+            DONE,
+            NONE
         }
         public Section currentSection;
 
@@ -44,7 +46,6 @@ namespace PathOfThal
                         }
                     }else if(currentSection == Section.TYPEDATA){
                         if(Utility.IsQuote(c)){
-                            Type += c;
                             currentSection = Section.DATA;
                         }else if(Utility.IsChar(c)){
                             Type += c;
@@ -52,24 +53,27 @@ namespace PathOfThal
                     }else if(currentSection == Section.DATA){
                         if(Utility.IsDoubleQuote(c)){
                             currentSection = Section.DATADATA;
-                        } else if(Utility.isUseless(c)){
+                        }else if(Utility.isStar(c)){
                             currentSection = Section.DONE;
+                            eventObject = new Dialog(DialogText.ToArray());
                         }
                     }else if(currentSection == Section.DATADATA){
                         if(Utility.IsDoubleQuote(c)){
                             currentSection = Section.DATA;
-                            currentDialogLine += c;
                             DialogText.Add(currentDialogLine);
-                        }else if(Utility.IsChar(c)){
+                            currentDialogLine = string.Empty;
+                        }else if(Utility.IsChar(c) || Utility.isNum(c)){
                             currentDialogLine += c;
                         }
-                    }else {
-                        Console.WriteLine("[EventParser] Parsed event correctly");
+                    }else if(currentSection == Section.DONE){
+                        Console.WriteLine("[EventParser] Parsed following event correctly");
+                        Console.WriteLine(eventObject.ToString());
+                        currentSection = Section.NONE;
                     }
                 }
 
             }
-            return new Dialog(DialogText.ToArray());
+            return eventObject;
         }
     }
 }

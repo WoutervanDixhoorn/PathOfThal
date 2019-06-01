@@ -119,6 +119,19 @@ namespace PathOfThal
 
         }
 
+        //TEMP SOLUTION NOT VERY EFFICIENT
+        public void RemoveEventRef(string iEventRef){
+            foreach(MapLayer mapLayer in layers){
+                for(int i = 0; i < mapLayer.GetTerrain().GetTerrainData().GetLength(1); i++){
+                    for(int j = 0; j < mapLayer.GetTerrain().GetTerrainData().GetLength(0); j++){
+                        if(mapLayer.GetTerrain().GetTerrainData()[j,i].GetEventRef() == iEventRef){
+                            mapLayer.GetTerrain().GetTerrainData()[j,i].DeleteEventRef();
+                        }
+                    }
+                }
+            }  
+        }
+
         public int GetWidthOfMap(){
             return (layers[0].GetTerrain().GetTerrainData().GetLength(1) ) * 100;
         }

@@ -134,7 +134,6 @@ namespace PathOfThal
                             if(Utility.IsChar(c)){
                                 currentEvent += c;
                             }else if(Utility.IsDoubleQuote(c)){
-                                currentEvent += c;
                                 section = EVENT;
                             }   
                         }else{

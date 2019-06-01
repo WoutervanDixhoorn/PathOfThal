@@ -28,12 +28,8 @@ namespace PathOfThal
 
         }
 
-        public void Draw(SpriteBatch spriteBatch){
-            eventObject.DrawEvent(spriteBatch);
-        }
-
-        public void Draw(){
-            eventObject.DrawEvent();
+        public void Draw(SpriteBatch iSpriteBatch){
+            eventObject.DrawEvent(iSpriteBatch);
         }
 
     }

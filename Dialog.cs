@@ -53,6 +53,7 @@ namespace PathOfThal
             backGround.Unload();
             outline.Unload();
             text.Unload();
+            
             eventDone = true;
             visible = false;
         }
@@ -115,7 +116,7 @@ namespace PathOfThal
             }
         }
 
-        public void DrawEvent(){
+        public void DrawEvent(SpriteBatch iSpriteBatch){
             spriteBatch.Begin();
 
             if(visible){
@@ -127,12 +128,17 @@ namespace PathOfThal
             spriteBatch.End();
         }
 
-        public void DrawEvent(SpriteBatch spriteBatch){
-
-        }
-
         public bool Done(){
             return eventDone;
+        }
+
+        public override string ToString(){
+            string DialogS = string.Empty;
+            foreach(string s in dialogText){
+                DialogS += "\t\"" + s + '\"' + '\n';
+            }
+
+            return "[DIALOG]\n" + DialogS;
         }
         
     }

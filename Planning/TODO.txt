@@ -9,10 +9,9 @@
 **/
     Todo now!
         *Make player move on gametime instead of loop speed
-        *InputManager
         *Use nuclex font so i dont have to use fixed font sizes
         *Loading events and ref to event file from map file
         *Make player interact with events
-        *Parsing events to a tile plehh!!!
+        *Remove rty catch in eventhandler draw
 */
 

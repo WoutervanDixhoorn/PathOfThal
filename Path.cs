@@ -57,6 +57,7 @@ namespace PathOfThal
             ContentHandler.Instance.Load(Content, GraphicsDevice);
             // TODO: use this.Content to load your game content here
 			MapParser mapParser = new MapParser();
+            EventParser evetnParser = new EventParser();
 			map = mapParser.Parse("MapExample.txt");
 			Console.WriteLine(map.ToString());
             rect3.Load();

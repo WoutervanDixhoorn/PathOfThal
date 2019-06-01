@@ -126,6 +126,10 @@ namespace PathOfThal
             return eventRef;
         }
 
+        public void DeleteEventRef(){
+            eventRef = String.Empty;
+        }
+
         public override string ToString(){
                 return " " + tileType;
         }
