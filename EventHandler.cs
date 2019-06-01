@@ -37,7 +37,7 @@ namespace PathOfThal
                 currentEvent.LoadEvent();
             }
             
-            Console.WriteLine(currentEventString);
+            //Console.WriteLine(currentEventString);
 
             if(running){
                 currentEvent.UpdateEvent(gameTime);

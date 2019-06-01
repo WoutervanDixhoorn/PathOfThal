@@ -3,7 +3,7 @@
         *Square.Draw()
         *Map.Draw()
         *Collision in player.cs
-        *dialog system
+        *Events and eventhandler
 */
 
 **/
@@ -14,5 +14,6 @@
         *Make player interact with events
         *Clean up Interface events
         *Remove time restriction from events
+        *Make event parser be able to return different types of events, now only able to return dialog event
 */
 

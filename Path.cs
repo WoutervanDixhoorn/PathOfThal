@@ -85,7 +85,7 @@ namespace PathOfThal
             #if DEBUG
             if(InputManger.IsKeyPressed(Keys.Q)){
                 ShowCollision = !ShowCollision;
-            }else if(InputManger.IsKeyPressed(Keys.Q)){
+            }else if(InputManger.IsKeyPressed(Keys.W)){
                 ShowTileNumber = !ShowTileNumber;
             }
             #endif
