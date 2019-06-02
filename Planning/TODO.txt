@@ -8,12 +8,20 @@
 
 **/
     Todo now!
+        *Remove useless pieces of code like temporary variables
+        *Make temporary pieces of code into longer term code
         *Make player move on gametime instead of loop speed
         *Use nuclex font so i dont have to use fixed font sizes
-        *Loading events and ref to event file from map file
-        *Make player interact with events
-        *Clean up Interface events
-        *Remove time restriction from events
         *Make event parser be able to return different types of events, now only able to return dialog event
+
+    Todo later,
+        *Make a map editor
+        *Make game art
+        *Make a proper collision system
+        *Implement sprite class that cuts tilesheet into sprites
+        *Make animation system
+
+    Todo for fun
+        *Implement some basic temporary art
 */
 
